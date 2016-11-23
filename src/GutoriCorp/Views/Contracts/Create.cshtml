@@ -1,142 +1,176 @@
 @model GutoriCorp.Models.BusinessViewModels.Contract
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-
-<form asp-action="Create">
-    <div class="form-horizontal">
-        <h4>Contract</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="accident_penalty_fee" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="accident_penalty_fee" class="form-control" />
-                <span asp-validation-for="accident_penalty_fee" class="text-danger" />
-            </div>
+<div class="content-heading bg-white">
+    <div class="row">
+        <div class="col-sm-9">
+            <h4 class="m0 text-thin">Create Contract</h4><small>Contract edition mode</small>
         </div>
-        <div class="form-group">
-            <label asp-for="contract_date" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="contract_date" class="form-control" />
-                <span asp-validation-for="contract_date" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="contract_type_id" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="contract_type_id" class="form-control" />
-                <span asp-validation-for="contract_type_id" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="created_by" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="created_by" class="form-control" />
-                <span asp-validation-for="created_by" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="created_on" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="created_on" class="form-control" />
-                <span asp-validation-for="created_on" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="frequency_id" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="frequency_id" class="form-control" />
-                <span asp-validation-for="frequency_id" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="late_fee" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="late_fee" class="form-control" />
-                <span asp-validation-for="late_fee" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="late_fee_type" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="late_fee_type" class="form-control" />
-                <span asp-validation-for="late_fee_type" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="lessee_id" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="lessee_id" class="form-control" />
-                <span asp-validation-for="lessee_id" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="lessor_id" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="lessor_id" class="form-control" />
-                <span asp-validation-for="lessor_id" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="modified_by" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="modified_by" class="form-control" />
-                <span asp-validation-for="modified_by" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="modified_on" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="modified_on" class="form-control" />
-                <span asp-validation-for="modified_on" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="rental_fee" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="rental_fee" class="form-control" />
-                <span asp-validation-for="rental_fee" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="status_id" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="status_id" class="form-control" />
-                <span asp-validation-for="status_id" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="thirdparty_fee" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="thirdparty_fee" class="form-control" />
-                <span asp-validation-for="thirdparty_fee" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        <div class="col-sm-3 text-right hidden-xs">
+            <button type="button" class="mt-sm btn btn-labeled btn-default ripple">All Contracts<span class="btn-label btn-label-right"><i class="ion-plus-round"></i></span></button>
         </div>
     </div>
-</form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-</body>
-</html>
+<div class="container container-md">
+    <div class="panel panel-default">
+        <div class="panel-heading">Contract</div>
+        <div class="panel-body">
+            <form id="example-vertical" class="hidden" asp-action="Create">
+                <h4>Counterparties information</h4>
+                <section>
+                    <div class="form-group">
+                        <label asp-for="lessee_id" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="lessee_id" class="form-control" />
+                            <span asp-validation-for="lessee_id" class="text-danger" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="lessor_id" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="lessor_id" class="form-control" />
+                            <span asp-validation-for="lessor_id" class="text-danger" />
+                        </div>
+                    </div>
+                </section>
+                <h4>Contract Type</h4>
+                <section>
+                    <div class="form-group">
+                        <label asp-for="contract_type_id" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="contract_type_id" class="form-control" />
+                            <span asp-validation-for="contract_type_id" class="text-danger" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="frequency_id" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="frequency_id" class="form-control" />
+                            <span asp-validation-for="frequency_id" class="text-danger" />
+                        </div>
+                    </div>
+                </section>
+                <h4>Fees</h4>
+                <section>
+                    <p>The next and previous buttons help you to navigate through your content.</p>
+                </section>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container container-lg">
+    <form asp-action="Create">
+
+        <!-- Large card-->
+        <div class="card">
+            <div class="card-heading">
+                <!-- START dropdown-->
+                <div class="pull-right dropdown">
+                    <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+                    <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                        <li><a href="#">Option 1</a></li>
+                        <li><a href="#">Option 2</a></li>
+                        <li><a href="#">Option 3</a></li>
+                    </ul>
+                </div>
+                <!-- END dropdown-->
+            </div>
+            <div class="card-body pt0">
+                <h3 class="mt0">Technology</h3>
+                <p>Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Nostrud in laboris labore nisi amet do dolor eu fugiat consectetur elit cillum esse. Pariatur occaecat nisi laboris tempor laboris eiusmod qui id Lorem esse commodo in. Exercitation aute dolore deserunt culpa consequat elit labore incididunt elit anim.</p>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-flat btn-primary">Read More</button>
+            </div>
+        </div>
+
+        
+        <div class="form-horizontal">
+            <h4>Contract</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="accident_penalty_fee" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="accident_penalty_fee" class="form-control" />
+                    <span asp-validation-for="accident_penalty_fee" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="contract_date" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="contract_date" class="form-control" />
+                    <span asp-validation-for="contract_date" class="text-danger" />
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="late_fee" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="late_fee" class="form-control" />
+                    <span asp-validation-for="late_fee" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="late_fee_type" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="late_fee_type" class="form-control" />
+                    <span asp-validation-for="late_fee_type" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                
+                
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="modified_by" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="modified_by" class="form-control" />
+                    <span asp-validation-for="modified_by" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="modified_on" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="modified_on" class="form-control" />
+                    <span asp-validation-for="modified_on" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="rental_fee" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="rental_fee" class="form-control" />
+                    <span asp-validation-for="rental_fee" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="status_id" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="status_id" class="form-control" />
+                    <span asp-validation-for="status_id" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="thirdparty_fee" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="thirdparty_fee" class="form-control" />
+                    <span asp-validation-for="thirdparty_fee" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
