@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using GutoriCorp.Models;
-using GutoriCorp.Models.BusinessViewModels;
+using GutoriCorp.Data.Models;
 using GutoriCorp.Models.GeneralViewModels;
 
 namespace GutoriCorp.Data

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GutoriCorp.Models.BusinessViewModels
+namespace GutoriCorp.Data.Models
 {
     [Table("Contract")]
     public partial class Contract
@@ -54,5 +54,6 @@ namespace GutoriCorp.Models.BusinessViewModels
         //public virtual Owner Owner { get; set; }
 
         //public virtual GeneralCatalogValue GeneralCatalogValue3 { get; set; }
+        
     }
 }

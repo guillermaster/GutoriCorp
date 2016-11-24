@@ -1500,6 +1500,128 @@ tr.danger > td {
 }
 
 /**
+ * Easy Pie Chart
+ */
+.easypie-chart {
+  display: inline-block;
+  position: relative;
+  padding: 0 6px;
+}
+.easypie-chart span,
+.easypie-chart .percentage {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  margin-left: -50%;
+  height: 30px;
+  margin-top: -15px;
+  line-height: 25px;
+  text-align: center;
+}
+.easypie-chart span {
+  font-size: 20px;
+}
+.easypie-chart canvas {
+  max-width: 100%;
+}
+
+/**
+ * Flot Chart
+ */
+.flot-chart {
+  display: block;
+  width: 100%;
+  font-size: 12px;
+}
+@media only screen and (min-width: 768px) {
+  .flot-chart {
+    font-size: 14px;
+  }
+}
+.flot-chart .legend > div,
+.flot-chart .legend > table {
+  top: 0 !important;
+  background-color: transparent !important;
+  color: inherit !important;
+}
+.flot-chart .legend > table tr td {
+  padding: 3px;
+}
+.flot-chart .legend > table tr td:first-child {
+  padding-left: 3px;
+}
+.flot-chart .legend > table tr td:last-child {
+  padding-right: 3px;
+}
+.flot-chart .legend > table tr + tr td {
+  padding-top: 0;
+}
+.flot-chart .legend > div:first-child {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+.flot-chart .legend .legendColorBox > div,
+.flot-chart .legend .legendColorBox > div > div {
+  border-radius: 400px;
+}
+.flot-chart .legend .legendColorBox > div {
+  border-color: rgba(162, 162, 162, 0.46) !important;
+}
+.flot-chart.flot-legend-left .legend > div,
+.flot-chart.flot-legend-left .legend > table {
+  left: 0 !important;
+}
+.flot-chart:not([height]) {
+  height: 120px;
+}
+.flot-chart.flot-chart-lg {
+  height: 275px;
+}
+.flot-chart.flot-chart-md {
+  height: 190px;
+}
+.flot-chart.flot-chart-sm {
+  height: 80px;
+}
+.flot-chart.flot-chart-xs {
+  height: 60px;
+}
+.flot-chart-content {
+  width: 100%;
+  height: 100%;
+}
+.flot-pie-label {
+  padding: 3px 5px;
+  font-size: 10px;
+  text-align: center;
+  color: #fff;
+}
+#flotTip,
+.flotTip {
+  position: relative;
+  padding: 8px 16px;
+  font-size: 13px !important;
+  font-weight: 600;
+  border-radius: 2px !important;
+  border-color: transparent !important;
+  background-color: #455A64 !important;
+  color: #fff;
+  z-index: 5;
+}
+
+/**
+ * Sparklines
+ */
+sparkline {
+  display: block;
+}
+.jqstooltip {
+  width: auto !important;
+  height: auto !important;
+}
+
+/**
  * Google Material Colors (customization)
  */
 .bg-pink-500 {
@@ -1907,128 +2029,6 @@ tr.danger > td {
 .bg-blue-grey-400 .text-soft,
 .bg-blue-grey-500 .text-soft {
   color: rgba(255, 255, 255, 0.26);
-}
-
-/**
- * Easy Pie Chart
- */
-.easypie-chart {
-  display: inline-block;
-  position: relative;
-  padding: 0 6px;
-}
-.easypie-chart span,
-.easypie-chart .percentage {
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 100%;
-  margin-left: -50%;
-  height: 30px;
-  margin-top: -15px;
-  line-height: 25px;
-  text-align: center;
-}
-.easypie-chart span {
-  font-size: 20px;
-}
-.easypie-chart canvas {
-  max-width: 100%;
-}
-
-/**
- * Flot Chart
- */
-.flot-chart {
-  display: block;
-  width: 100%;
-  font-size: 12px;
-}
-@media only screen and (min-width: 768px) {
-  .flot-chart {
-    font-size: 14px;
-  }
-}
-.flot-chart .legend > div,
-.flot-chart .legend > table {
-  top: 0 !important;
-  background-color: transparent !important;
-  color: inherit !important;
-}
-.flot-chart .legend > table tr td {
-  padding: 3px;
-}
-.flot-chart .legend > table tr td:first-child {
-  padding-left: 3px;
-}
-.flot-chart .legend > table tr td:last-child {
-  padding-right: 3px;
-}
-.flot-chart .legend > table tr + tr td {
-  padding-top: 0;
-}
-.flot-chart .legend > div:first-child {
-  border-color: rgba(0, 0, 0, 0.1) !important;
-}
-.flot-chart .legend .legendColorBox > div,
-.flot-chart .legend .legendColorBox > div > div {
-  border-radius: 400px;
-}
-.flot-chart .legend .legendColorBox > div {
-  border-color: rgba(162, 162, 162, 0.46) !important;
-}
-.flot-chart.flot-legend-left .legend > div,
-.flot-chart.flot-legend-left .legend > table {
-  left: 0 !important;
-}
-.flot-chart:not([height]) {
-  height: 120px;
-}
-.flot-chart.flot-chart-lg {
-  height: 275px;
-}
-.flot-chart.flot-chart-md {
-  height: 190px;
-}
-.flot-chart.flot-chart-sm {
-  height: 80px;
-}
-.flot-chart.flot-chart-xs {
-  height: 60px;
-}
-.flot-chart-content {
-  width: 100%;
-  height: 100%;
-}
-.flot-pie-label {
-  padding: 3px 5px;
-  font-size: 10px;
-  text-align: center;
-  color: #fff;
-}
-#flotTip,
-.flotTip {
-  position: relative;
-  padding: 8px 16px;
-  font-size: 13px !important;
-  font-weight: 600;
-  border-radius: 2px !important;
-  border-color: transparent !important;
-  background-color: #455A64 !important;
-  color: #fff;
-  z-index: 5;
-}
-
-/**
- * Sparklines
- */
-sparkline {
-  display: block;
-}
-.jqstooltip {
-  width: auto !important;
-  height: auto !important;
 }
 
 /**
