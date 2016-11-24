@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using GutoriCorp.Models;
 using GutoriCorp.Models.BusinessViewModels;
+using GutoriCorp.Models.GeneralViewModels;
 
 namespace GutoriCorp.Data
 {
@@ -25,5 +26,6 @@ namespace GutoriCorp.Data
         }
 
         public DbSet<Contract> Contract { get; set; }
+        public virtual DbSet<GeneralCatalogValue> GeneralCatalogValues { get; set; }
     }
 }

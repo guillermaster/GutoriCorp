@@ -41,7 +41,8 @@
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.1"
-    }
+    },
+    "GutoriCorp.Common": "1.0.0-*"
   },
 
   "tools": {

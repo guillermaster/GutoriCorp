@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GutoriCorp.Data;
 using GutoriCorp.Models.BusinessViewModels;
+using GutoriCorp.Data.Operations;
 
 namespace GutoriCorp.Controllers
 {
@@ -45,8 +46,12 @@ namespace GutoriCorp.Controllers
         // GET: Contracts/Create
         public IActionResult Create()
         {
+            var gralCatalogDataOp = new GeneralCatalogData(_context);
+            
+            ViewData["ContractType"] = gralCatalogDataOp.GetCatalogValues(Common.Enums.GeneralCatalog.ContractType);
             return View();
         }
+        
 
         // POST: Contracts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
