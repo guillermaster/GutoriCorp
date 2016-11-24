@@ -59,7 +59,10 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         //public virtual GeneralCatalogValue GeneralCatalogValue3 { get; set; }
 
+        // Properties used to fill dropdownlists
         public IEnumerable<SelectListItem> ContractTypes { get; set; }
+        public IEnumerable<SelectListItem> Owners { get; set; }
+        public IEnumerable<SelectListItem> Drivers { get; set; }
         //public List<GeneralViewModels.GeneralCatalogValue> Frecuencies { get; set; }
         //public List<GeneralViewModels.GeneralCatalogValue> LateFeesTypes { get; set; }
     }

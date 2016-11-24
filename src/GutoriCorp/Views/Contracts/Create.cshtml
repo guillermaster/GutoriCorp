@@ -31,21 +31,21 @@
             <div class="card-body pt0">
                 <h5 class="mt0">Basic Information</h5>
                 <div class="form-group">
-                    <label asp-for="lessee_id" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <div class="col-md-5 col-sm-8">
-                            <input asp-for="contract_date" class="form-control" />
-                        </div>
-                        <span asp-validation-for="lessee_id" class="text-danger" />
-                    </div>
-                </div>
-                <div class="form-group">
                     <label asp-for="lessor_id" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="lessor_id" class="form-control" />
+                        @Html.DropDownListFor(m => m.lessor_id, Model.Owners, "- Please select a lessor -", new { @class = "form-control" })
                         <span asp-validation-for="lessor_id" class="text-danger" />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label asp-for="lessee_id" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <div class="col-md-5 col-sm-8">
+                            @Html.DropDownListFor(m => m.lessee_id, Model.Drivers, "- Please select a lessee -", new { @class = "form-control" })
+                        </div>
+                        <span asp-validation-for="lessee_id" class="text-danger" />
+                    </div>
+                </div>                
                 <div class="form-group">
                     <label asp-for="contract_date" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <label asp-for="contract_type_id" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        @Html.DropDownListFor(m => m.ContractTypes, Model.ContractTypes, "- Please select a contract type -", new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.contract_type_id, Model.ContractTypes, "- Please select a contract type -", new { @class = "form-control" })
 
                     </div>
                 </div>

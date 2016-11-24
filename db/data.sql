@@ -1,11 +1,10 @@
 USE [CarRentalEnterprise]
 GO
-
+--  contract type
 INSERT INTO [dbo].[GeneralCatalog]
            ([title])
      VALUES
            ('Contract Type')
-GO
 
 INSERT INTO [dbo].[GeneralCatalogValue]
            ([id]
@@ -24,3 +23,93 @@ INSERT INTO [dbo].[GeneralCatalogValue]
            (2
            ,1
            ,'Sale')
+
+-- status
+INSERT INTO [dbo].[GeneralCatalog]
+           ([title])
+     VALUES
+           ('Status')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (3
+           ,2
+           ,'Active')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (4
+           ,2
+           ,'Inactive')
+
+-- SYSTEM USER
+INSERT INTO [dbo].[SystemUser]
+           ([first_name]
+           ,[last_name]
+           ,[user_name]
+           ,[user_pwd]
+           ,[status_id]
+           ,[created_on]
+           ,[created_by]
+           ,[modified_on]
+           ,[modified_by])
+     VALUES
+           ('Jorge'
+           ,'Peralta'
+           ,'jorge'
+           ,'tmp'
+           ,3
+           ,GETDATE()
+           ,1
+           ,GETDATE()
+           ,1)
+
+
+
+-- OWNERS
+
+INSERT INTO [dbo].[Owner]
+           ([first_name]
+           ,[last_name]
+           ,[created_on]
+           ,[created_by]
+           ,[modified_on]
+           ,[modified_by])
+     VALUES
+           ('Jorge'
+           ,'Peralta'
+           ,GETDATE()
+           ,1
+           ,GETDATE()
+           ,1)
+
+-- DRIVER
+
+INSERT INTO [dbo].[Driver]
+           ([first_name]
+           ,[last_name]
+           ,[phone]
+           ,[address]
+           ,[ssn]
+           ,[created_on]
+           ,[created_by]
+           ,[modified_on]
+           ,[modified_by])
+     VALUES
+           ('Pedro'
+           ,'Palencia'
+           ,'929-499-2967'
+           ,'1950 DALY AVE., 5K, BRONX, NY 10460'
+           ,'unknown'
+           ,GETDATE()
+           ,1
+           ,GETDATE()
+           ,1)
+
+

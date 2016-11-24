@@ -48,6 +48,8 @@ namespace GutoriCorp.Controllers
         public IActionResult Create()
         {
             var model = new ContractViewModel();
+            model.Owners = GetAllOwners();
+            model.Drivers = GetAllDrivers();
             model.ContractTypes = GetAllContractTypes();
             
             return View(model);
@@ -167,6 +169,44 @@ namespace GutoriCorp.Controllers
                 {
                     Value = contractType.id.ToString(),
                     Text = contractType.title
+                });
+            }
+
+            return selectList;
+        }
+
+        private IEnumerable<SelectListItem> GetAllOwners()
+        {
+            var selectList = new List<SelectListItem>();
+
+            var ownerDataOp = new OwnerData(_context);
+            var owners = ownerDataOp.GetOwners();
+
+            foreach(var owner in owners)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = owner.id.ToString(),
+                    Text = owner.first_name + " " + owner.last_name
+                });
+            }
+
+            return selectList;
+        }
+
+        private IEnumerable<SelectListItem> GetAllDrivers()
+        {
+            var selectList = new List<SelectListItem>();
+
+            var driverDataOp = new DriverData(_context);
+            var drivers = driverDataOp.GetDrivers();
+
+            foreach (var driver in drivers)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = driver.id.ToString(),
+                    Text = driver.first_name + " " + driver.last_name
                 });
             }
 

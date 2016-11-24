@@ -25,7 +25,9 @@ namespace GutoriCorp.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<Contract> Contract { get; set; }
+        public virtual DbSet<Contract> Contract { get; set; }
         public virtual DbSet<GeneralCatalogValue> GeneralCatalogValues { get; set; }
+        public virtual DbSet<Owner> Owner { get; set; }
+        public virtual DbSet<Driver> Driver { get; set; }
     }
 }
