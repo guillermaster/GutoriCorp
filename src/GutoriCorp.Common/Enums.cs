@@ -9,7 +9,10 @@ namespace GutoriCorp.Common
     {
         public enum GeneralCatalog
         {
-            ContractType = 1
+            ContractType = 1,
+            GeneralStatus = 2,
+            ContractFrequency = 3,
+            ContractLateFeeType = 4
         }
     }
 }

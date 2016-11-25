@@ -50,8 +50,10 @@ namespace GutoriCorp.Controllers
             var model = new ContractViewModel();
             model.Owners = GetAllOwners();
             model.Drivers = GetAllDrivers();
-            model.ContractTypes = GetAllContractTypes();
-            
+            model.ContractTypes = GetGeneralCatalogValues(Common.Enums.GeneralCatalog.ContractType);
+            model.ContractFrequencies = GetGeneralCatalogValues(Common.Enums.GeneralCatalog.ContractFrequency);
+            model.ContractLateFeeTypes = GetGeneralCatalogValues(Common.Enums.GeneralCatalog.ContractLateFeeType);
+
             return View(model);
         }
         
@@ -156,12 +158,12 @@ namespace GutoriCorp.Controllers
             return _context.Contract.Any(e => e.id == id);
         }
 
-        private IEnumerable<SelectListItem> GetAllContractTypes()
+        private IEnumerable<SelectListItem> GetGeneralCatalogValues(Common.Enums.GeneralCatalog catalog)
         {
             var selectList = new List<SelectListItem>();
 
             var gralCatalogDataOp = new GeneralCatalogData(_context);
-            var contractTypes = gralCatalogDataOp.GetCatalogValues(Common.Enums.GeneralCatalog.ContractType);
+            var contractTypes = gralCatalogDataOp.GetCatalogValues(catalog);
 
             foreach(var contractType in contractTypes)
             {
@@ -174,6 +176,7 @@ namespace GutoriCorp.Controllers
 
             return selectList;
         }
+        
 
         private IEnumerable<SelectListItem> GetAllOwners()
         {

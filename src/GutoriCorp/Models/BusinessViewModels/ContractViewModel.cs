@@ -10,27 +10,39 @@ namespace GutoriCorp.Models.BusinessViewModels
     {
         public long id { get; set; }
 
+        [Required]
+        [Display(Name = "Lessor")]
         public short lessor_id { get; set; }
 
+        [Required]
+        [Display(Name = "Lessee")]
         public short lessee_id { get; set; }
 
         [Required]
         [Display(Name="Contract Type")]
         public short contract_type_id { get; set; }
 
+        [Required]
+        [Display(Name = "Contract Date")]
         [Column(TypeName = "date")]
         public DateTime contract_date { get; set; }
-
+        
+        [Display(Name = "Contract Type")]
         public short? frequency_id { get; set; }
-
+        
+        [Display(Name = "Rental Fee")]
         public decimal? rental_fee { get; set; }
-
+        
+        [Display(Name = "Late Fee Type")]
         public short? late_fee_type { get; set; }
-
+        
+        [Display(Name = "Late Fee")]
         public decimal? late_fee { get; set; }
-
+        
+        [Display(Name = "Thirdparty Fee")]
         public decimal? thirdparty_fee { get; set; }
 
+        [Display(Name = "Addicent Penalty Fee")]
         public decimal? accident_penalty_fee { get; set; }
 
         public short status_id { get; set; }
@@ -61,6 +73,8 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         // Properties used to fill dropdownlists
         public IEnumerable<SelectListItem> ContractTypes { get; set; }
+        public IEnumerable<SelectListItem> ContractFrequencies { get; set; }
+        public IEnumerable<SelectListItem> ContractLateFeeTypes { get; set; }
         public IEnumerable<SelectListItem> Owners { get; set; }
         public IEnumerable<SelectListItem> Drivers { get; set; }
         //public List<GeneralViewModels.GeneralCatalogValue> Frecuencies { get; set; }

@@ -49,7 +49,12 @@
                 <div class="form-group">
                     <label asp-for="contract_date" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="contract_date" class="form-control" />
+                        <div id="example-datepicker-container-4" class="rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary">
+                            <div class="mda-form-control">
+                                <input asp-for="contract_date" id="example-datepicker-4" type="text" data-date="12/13/2016" placeholder="Select a date.." class="form-control" />
+                                <div class="mda-form-control-line"></div>
+                            </div>
+                        </div>
                         <span asp-validation-for="contract_date" class="text-danger" />
                     </div>
                 </div>
@@ -59,20 +64,19 @@
                     <label asp-for="contract_type_id" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
                         @Html.DropDownListFor(m => m.contract_type_id, Model.ContractTypes, "- Please select a contract type -", new { @class = "form-control" })
-
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="frequency_id" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="frequency_id" class="form-control" />
+                        @Html.DropDownListFor(m => m.frequency_id, Model.ContractFrequencies, "- Please select a frequency -", new { @class = "form-control" })
                         <span asp-validation-for="frequency_id" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="late_fee_type" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="late_fee_type" class="form-control" />
+                        @Html.DropDownListFor(m => m.late_fee_type, Model.ContractLateFeeTypes, "- Please select a late fee type -", new { @class = "form-control" })
                         <span asp-validation-for="late_fee_type" class="text-danger" />
                     </div>
                 </div>
@@ -81,28 +85,40 @@
                 <div class="form-group">
                     <label asp-for="rental_fee" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="rental_fee" class="form-control" />
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input asp-for="rental_fee" type="text" class="form-control" /><span class="input-group-addon">.00</span>
+                        </div><br />
                         <span asp-validation-for="rental_fee" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="late_fee" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="late_fee" class="form-control" />
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input asp-for="late_fee" type="text" class="form-control" /><span class="input-group-addon">.00</span>
+                        </div><br />
                         <span asp-validation-for="late_fee" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="thirdparty_fee" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="thirdparty_fee" class="form-control" />
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input asp-for="thirdparty_fee" type="text" class="form-control" /><span class="input-group-addon">.00</span>
+                        </div><br />
                         <span asp-validation-for="thirdparty_fee" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="accident_penalty_fee" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="accident_penalty_fee" class="form-control" />
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input asp-for="accident_penalty_fee" type="text" class="form-control" /><span class="input-group-addon">.00</span>
+                        </div><br />
                         <span asp-validation-for="accident_penalty_fee" class="text-danger" />
                     </div>
                 </div>

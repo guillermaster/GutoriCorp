@@ -48,6 +48,54 @@ INSERT INTO [dbo].[GeneralCatalogValue]
            ,2
            ,'Inactive')
 
+--  contract frequency
+INSERT INTO [dbo].[GeneralCatalog]
+           ([title])
+     VALUES
+           ('Contract Frequency')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (5
+           ,3
+           ,'Weekly')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (6
+           ,3
+           ,'Monthly')
+
+--  contract late fee type
+INSERT INTO [dbo].[GeneralCatalog]
+           ([title])
+     VALUES
+           ('Contract Late Fee Type')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (7
+           ,4
+           ,'Late fee type 1')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (8
+           ,4
+           ,'Late fee type 2')
+
 -- SYSTEM USER
 INSERT INTO [dbo].[SystemUser]
            ([first_name]
