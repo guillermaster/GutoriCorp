@@ -29,5 +29,8 @@ namespace GutoriCorp.Data
         public virtual DbSet<GeneralCatalogValue> GeneralCatalogValues { get; set; }
         public virtual DbSet<Owner> Owner { get; set; }
         public virtual DbSet<Driver> Driver { get; set; }
+        public virtual DbSet<Vehicle> Vehicle { get; set; }
+        public virtual DbSet<VehicleMake> VehicleMake { get; set; }
+        public virtual DbSet<VehicleMakeModel> VehicleMakeModel { get; set; }
     }
 }

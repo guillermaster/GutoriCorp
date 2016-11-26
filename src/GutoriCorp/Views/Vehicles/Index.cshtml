@@ -1,0 +1,157 @@
+@model IEnumerable<GutoriCorp.Data.Models.Vehicle>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model._new)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.body_hull_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.color_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.created_by)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.created_on)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cyl_prop)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.date_issued)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.document_num)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fuel_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.make_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.model_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.modified_by)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.modified_on)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reading_miles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.seats)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tlc_plate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.type_title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vin_code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.wt_sts_lgth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.year)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item._new)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.body_hull_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.color_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.created_by)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.created_on)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cyl_prop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_issued)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.document_num)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fuel_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.make_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.model_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.modified_by)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.modified_on)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reading_miles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.seats)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tlc_plate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type_title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vin_code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.wt_sts_lgth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.year)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

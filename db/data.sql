@@ -161,3 +161,22 @@ INSERT INTO [dbo].[Driver]
            ,1)
 
 
+-- VEHICLE BRANDS  (MAKE)
+
+INSERT INTO [dbo].[VehicleMake] ([name])  VALUES ('Audi')
+INSERT INTO [dbo].[VehicleMake] ([name])  VALUES ('Chevrolet')
+INSERT INTO [dbo].[VehicleMake] ([name])  VALUES ('Ford')
+INSERT INTO [dbo].[VehicleMake] ([name])  VALUES ('Mercedes Benz')
+INSERT INTO [dbo].[VehicleMake] ([name])  VALUES ('Renault')
+INSERT INTO [dbo].[VehicleMake] ([name])  VALUES ('Toyota')
+
+GO
+
+--SELECT * FROM VehicleMake
+
+INSERT INTO [dbo].[VehicleMakeModel] ([make_id],[name]) VALUES (6,'Camry SE')
+INSERT INTO [dbo].[VehicleMakeModel] ([make_id],[name]) VALUES (6,'Camry')
+INSERT INTO [dbo].[VehicleMakeModel] ([make_id],[name]) VALUES (6,'Camry XSE')
+INSERT INTO [dbo].[VehicleMakeModel] ([make_id],[name]) VALUES (6,'Avalon XLE')
+GO
+
