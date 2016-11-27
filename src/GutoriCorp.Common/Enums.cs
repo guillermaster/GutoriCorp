@@ -14,5 +14,11 @@ namespace GutoriCorp.Common
             ContractFrequency = 3,
             ContractLateFeeType = 4
         }
+
+        public enum GeneralStatus
+        {
+            Active = 3,
+            Inactive = 4
+        }
     }
 }

@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label asp-for="lessor_id" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
-                            @Html.DropDownListFor(m => m.Owners, Model.Owners, "- Please select a lessor -", new { @class = "form-control rounded" })
+                            @Html.DropDownListFor(m => m.lessor_id, Model.Owners, "- Please select a lessor -", new { @class = "form-control rounded" })
                             <span asp-validation-for="lessor_id" class="text-danger" />
                         </div>
                     </div>
