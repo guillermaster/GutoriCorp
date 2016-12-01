@@ -148,6 +148,22 @@ namespace GutoriCorp.Controllers
             return RedirectToAction("Index");
         }
 
+//        [HttpPost]
+        public JsonResult Models(short year)
+        {
+            //if (year == 2011)
+            //{
+            //    return Json(
+            //        Enumerable.Range(1, 3).Select(x => new { value = x, text = x }),
+            //        JsonRequestBehavior.AllowGet
+            //    );
+            //}
+            return Json(
+                GetMakeModels(year).Select(x => new { value = x.Value, text = x.Text })//,
+                //JsonRequestBehavior.AllowGet
+            );
+        }
+
         private bool VehicleExists(int id)
         {
             return _context.Vehicle.Any(e => e.id == id);

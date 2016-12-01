@@ -42,7 +42,7 @@
                     <div class="form-group">
                         <label asp-for="model_id" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
-                            
+                            @Html.DropDownListFor(m => m.model_id, Model.Models, "- Please select a model -", new { @class = "form-control rounded" })
                             <span asp-validation-for="model_id" class="text-danger" />
                         </div>
                     </div>
@@ -55,3 +55,22 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    $('#make_id').change(function () {
+        var selectedMakeId = $(this).val();
+        console.log("test " + selectedMakeId);
+        if (selectedMakeId != null && selectedMakeId != '') {
+            $.getJSON('@Url.Action("Models")', { year: selectedMakeId }, function (models) {
+                var modelsSelect = $('#model_id');
+                modelsSelect.empty();
+                $.each(models, function (index, model) {
+                    modelsSelect.append($('<option/>', {
+                        value: model.value,
+                        text: model.text
+                    }));
+                });
+            });
+        }
+    });
+</script>
