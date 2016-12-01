@@ -36,6 +36,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.lessor_id)
                         </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.status_id)
+                        </th>
                         <th></th>
                     </tr>
                 </thead>
@@ -50,16 +53,19 @@
                                 @Html.DisplayFor(modelItem => item.contract_date)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.contract_type_id)
+                                @Html.DisplayFor(modelItem => item.contract_type)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.frequency_id)
+                                @Html.DisplayFor(modelItem => item.frequency)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.lessee_id)
+                                @Html.DisplayFor(modelItem => item.lessee)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.lessor_id)
+                                @Html.DisplayFor(modelItem => item.lessor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.status)
                             </td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |

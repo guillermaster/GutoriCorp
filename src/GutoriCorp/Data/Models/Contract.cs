@@ -21,7 +21,7 @@ namespace GutoriCorp.Data.Models
 
         public decimal? rental_fee { get; set; }
 
-        public short? late_fee_type { get; set; }
+        public short? late_fee_type_id { get; set; }
 
         public decimal? late_fee { get; set; }
 

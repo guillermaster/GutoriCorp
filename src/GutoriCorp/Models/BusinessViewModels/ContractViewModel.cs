@@ -14,28 +14,43 @@ namespace GutoriCorp.Models.BusinessViewModels
         [Display(Name = "Lessor")]
         public short lessor_id { get; set; }
 
+        [Display(Name = "Lessor")]
+        public string lessor { get; set; }
+
         [Required]
         [Display(Name = "Lessee")]
         public short lessee_id { get; set; }
 
+        [Display(Name = "Lessee")]
+        public string lessee { get; set; }
+
         [Required]
         [Display(Name="Contract Type")]
         public short contract_type_id { get; set; }
+        
+        [Display(Name = "Contract Type")]
+        public string contract_type { get; set; }
 
         [Required]
         [Display(Name = "Contract Date")]
         [Column(TypeName = "date")]
         public DateTime contract_date { get; set; }
         
-        [Display(Name = "Contract Type")]
+        [Display(Name = "Frecuency")]
         public short? frequency_id { get; set; }
-        
+
+        [Display(Name = "Frecuency")]
+        public string frequency { get; set; }
+
         [Display(Name = "Rental Fee")]
         public decimal? rental_fee { get; set; }
         
         [Display(Name = "Late Fee Type")]
-        public short? late_fee_type { get; set; }
-        
+        public short? late_fee_type_id { get; set; }
+
+        [Display(Name = "Late Fee Type")]
+        public string late_fee_type { get; set; }
+
         [Display(Name = "Late Fee")]
         public decimal? late_fee { get; set; }
         
@@ -46,6 +61,9 @@ namespace GutoriCorp.Models.BusinessViewModels
         public decimal? accident_penalty_fee { get; set; }
 
         public short status_id { get; set; }
+
+        [Display(Name = "Status")]
+        public string status { get; set; }
 
         public DateTime created_on { get; set; }
 

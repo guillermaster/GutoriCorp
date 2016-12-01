@@ -83,9 +83,9 @@
                 </fieldset>
                 <fieldset>
                     <div class="form-group">
-                        <label asp-for="late_fee_type" class="col-md-2 control-label"></label>
+                        <label asp-for="late_fee_type_id" class="col-md-2 control-label"></label>
                         <div class="col-md-10">
-                            @Html.DropDownListFor(m => m.late_fee_type, Model.ContractLateFeeTypes, "- Please select a late fee type -", new { @class = "form-control rounded" })
+                            @Html.DropDownListFor(m => m.late_fee_type_id, Model.ContractLateFeeTypes, "- Please select a late fee type -", new { @class = "form-control rounded" })
                             <span asp-validation-for="late_fee_type" class="text-danger" />
                         </div>
                     </div>

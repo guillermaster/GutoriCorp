@@ -23,9 +23,12 @@ namespace GutoriCorp.Controllers
         }
 
         // GET: Contracts
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Contract.ToListAsync());
+            var contractDataOp = new ContractData(_context);
+            var contracts = contractDataOp.GetAll();
+            return View(contracts);
         }
 
         // GET: Contracts/Details/5
