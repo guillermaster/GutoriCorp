@@ -32,7 +32,7 @@
                     <div class="form-group">
                         <label asp-for="lessor_id" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
-
+                            @Html.DisplayFor(model => model.lessor)
                         </div>
                     </div>
                 </fieldset>
@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label asp-for="lessee_id" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
-                            
+                            @Html.DisplayFor(model => model.lessee)
                         </div>
                     </div>
                 </fieldset>
@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <label asp-for="contract_date" class="col-md-2 control-label"></label>
                         <div class="col-md-10">
-
+                            @Html.DisplayFor(model => model.contract_date)
                         </div>
                     </div>
                 </fieldset>
@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label asp-for="contract_type_id" class="col-md-2 control-label"></label>
                         <div class="col-md-10">
-                            
+                            @Html.DisplayFor(model => model.contract_type)
                         </div>
                     </div>
                 </fieldset>
@@ -66,7 +66,7 @@
                     <div class="form-group">
                         <label asp-for="frequency_id" class="col-md-2 control-label"></label>
                         <div class="col-md-10">
-                            
+                            @Html.DisplayFor(model => model.frequency)
                         </div>
                     </div>
                 </fieldset>
@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <label asp-for="late_fee_type_id" class="col-md-2 control-label"></label>
                         <div class="col-md-10">
-                            
+                            @Html.DisplayFor(model => model.late_fee_type)
                         </div>
                     </div>
                 </fieldset>
@@ -86,7 +86,7 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <input asp-for="rental_fee" type="text" class="form-control" /><span class="input-group-addon">.00</span>
+                                @Html.TextBoxFor(m => m.rental_fee, new { @readonly = "readonly", Class="form-control" })
                             </div><br />
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <input asp-for="late_fee" type="text" class="form-control" /><span class="input-group-addon">.00</span>
+                                @Html.TextBoxFor(m => m.late_fee, new { @readonly = "readonly", Class = "form-control" })
                             </div><br />
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <input asp-for="thirdparty_fee" type="text" class="form-control" /><span class="input-group-addon">.00</span>
+                                @Html.TextBoxFor(m => m.thirdparty_fee, new { @readonly = "readonly", Class = "form-control" })
                             </div><br />
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <input asp-for="accident_penalty_fee" type="text" class="form-control" /><span class="input-group-addon">.00</span>
+                                @Html.TextBoxFor(m => m.accident_penalty_fee, new { @readonly = "readonly", Class = "form-control" })
                             </div><br />
                         </div>
                     </div>

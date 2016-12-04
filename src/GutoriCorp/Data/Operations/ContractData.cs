@@ -35,10 +35,37 @@ namespace GutoriCorp.Data.Operations
 
         public List<ContractViewModel> GetAll()
         {
+            var contractsQry = QueryAllData();
+            return contractsQry.ToList();
+        }
+
+       
+        public async Task<ContractViewModel> Get(long? id)
+        {
+            if (id == null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            var contractsQry = QueryAllData();
+
+            contractsQry = contractsQry.Where(c => c.id == id);
+
+            var contract = await contractsQry.SingleOrDefaultAsync(m => m.id == id);
+            if (contract == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            return contract;
+        }
+
+        private IQueryable<ContractViewModel> QueryAllData()
+        {
             var contractsQry = from cont in _context.Contract
                                join own in _context.Owner on cont.lessor_id equals own.id
                                join driv in _context.Driver on cont.lessee_id equals driv.id
                                join contType in _context.GeneralCatalogValues on cont.contract_type_id equals contType.id
+                               join lateFeeType in _context.GeneralCatalogValues on cont.late_fee_type_id equals lateFeeType.id
                                join frec in _context.GeneralCatalogValues on cont.frequency_id equals frec.id
                                join stat in _context.GeneralCatalogValues on cont.status_id equals stat.id
                                select new ContractViewModel
@@ -55,6 +82,7 @@ namespace GutoriCorp.Data.Operations
                                    contract_date = cont.contract_date,
                                    rental_fee = cont.rental_fee,
                                    late_fee_type_id = cont.late_fee_type_id,
+                                   late_fee_type = lateFeeType.title,
                                    late_fee = cont.late_fee,
                                    thirdparty_fee = cont.thirdparty_fee,
                                    accident_penalty_fee = cont.accident_penalty_fee,
@@ -65,23 +93,7 @@ namespace GutoriCorp.Data.Operations
                                    modified_on = cont.modified_on,
                                    modified_by = cont.modified_by
                                };
-
-            return contractsQry.ToList();
-        }
-
-        public async Task<ContractViewModel> Get(long? id)
-        {
-            if (id == null)
-            {
-                throw new KeyNotFoundException();
-            }
-
-            var contract = await _context.Contract.SingleOrDefaultAsync(m => m.id == id);
-            if (contract == null)
-            {
-                throw new KeyNotFoundException();
-            }
-            return GetViewModel(contract);
+            return contractsQry;
         }
 
         private Contract GetEntity(ContractViewModel contractVm)
