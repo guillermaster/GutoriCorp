@@ -34,29 +34,24 @@ namespace GutoriCorp.Controllers
         // GET: Contracts/Details/5
         public async Task<IActionResult> Details(long? id)
         {
-            if (id == null)
+            try
+            {
+                var contractDataOp = new ContractData(_context);
+                var contract = await contractDataOp.Get(id);
+                PopulateContractOptionsLists(contract);
+                return View(contract);
+            }
+            catch (DbUpdateConcurrencyException)
             {
                 return NotFound();
             }
-
-            var contract = await _context.Contract.SingleOrDefaultAsync(m => m.id == id);
-            if (contract == null)
-            {
-                return NotFound();
-            }
-
-            return View(contract);
         }
 
         // GET: Contracts/Create
         public IActionResult Create()
         {
             var model = new ContractViewModel();
-            model.Owners = GetAllOwners();
-            model.Drivers = GetAllDrivers();
-            model.ContractTypes = GetGeneralCatalogValues(Common.Enums.GeneralCatalog.ContractType);
-            model.ContractFrequencies = GetGeneralCatalogValues(Common.Enums.GeneralCatalog.ContractFrequency);
-            model.ContractLateFeeTypes = GetGeneralCatalogValues(Common.Enums.GeneralCatalog.ContractLateFeeType);
+            PopulateContractOptionsLists(model);
 
             return View(model);
         }
@@ -87,17 +82,17 @@ namespace GutoriCorp.Controllers
         // GET: Contracts/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null)
+            try
+            {
+                var contractDataOp = new ContractData(_context);
+                var contract = await contractDataOp.Get(id);
+                PopulateContractOptionsLists(contract);
+                return View(contract);
+            }
+            catch (DbUpdateConcurrencyException)
             {
                 return NotFound();
             }
-
-            var contract = await _context.Contract.SingleOrDefaultAsync(m => m.id == id);
-            if (contract == null)
-            {
-                return NotFound();
-            }
-            return View(contract);
         }
 
         // POST: Contracts/Edit/5
@@ -105,7 +100,8 @@ namespace GutoriCorp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("id,accident_penalty_fee,contract_date,contract_type_id,created_by,created_on,frequency_id,late_fee,late_fee_type,lessee_id,lessor_id,modified_by,modified_on,rental_fee,status_id,thirdparty_fee")] ContractViewModel contract)
+        //public async Task<IActionResult> Edit(long id, [Bind("id,accident_penalty_fee,contract_date,contract_type_id,created_by,created_on,frequency_id,late_fee,late_fee_type,lessee_id,lessor_id,modified_by,modified_on,rental_fee,status_id,thirdparty_fee")] ContractViewModel contract)
+        public async Task<IActionResult> Edit(long id, ContractViewModel contract)
         {
             if (id != contract.id)
             {
@@ -116,8 +112,8 @@ namespace GutoriCorp.Controllers
             {
                 try
                 {
-                    _context.Update(contract);
-                    await _context.SaveChangesAsync();
+                    var contractDataOp = new ContractData(_context);
+                    await contractDataOp.Update(contract);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -224,6 +220,15 @@ namespace GutoriCorp.Controllers
             }
 
             return selectList;
+        }
+
+        private void PopulateContractOptionsLists(ContractViewModel contract)
+        {
+            contract.Owners = GetAllOwners();
+            contract.Drivers = GetAllDrivers();
+            contract.ContractTypes = GetGeneralCatalogValues(Enums.GeneralCatalog.ContractType);
+            contract.ContractFrequencies = GetGeneralCatalogValues(Enums.GeneralCatalog.ContractFrequency);
+            contract.ContractLateFeeTypes = GetGeneralCatalogValues(Enums.GeneralCatalog.ContractLateFeeType);
         }
     }
 }

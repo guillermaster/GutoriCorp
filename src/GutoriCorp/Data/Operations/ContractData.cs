@@ -1,6 +1,8 @@
 ﻿using GutoriCorp.Common;
 using GutoriCorp.Data.Models;
 using GutoriCorp.Models.BusinessViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,14 @@ namespace GutoriCorp.Data.Operations
         public async Task Add(ContractViewModel contract)
         {
             _context.Add(GetEntity(contract));
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(ContractViewModel contract)
+        {
+            var contractDb = GetEntity(contract);
+            contractDb.id = contract.id;
+            _context.Update(contractDb);
             await _context.SaveChangesAsync();
         }
 
@@ -57,6 +67,21 @@ namespace GutoriCorp.Data.Operations
                                };
 
             return contractsQry.ToList();
+        }
+
+        public async Task<ContractViewModel> Get(long? id)
+        {
+            if (id == null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            var contract = await _context.Contract.SingleOrDefaultAsync(m => m.id == id);
+            if (contract == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            return GetViewModel(contract);
         }
 
         private Contract GetEntity(ContractViewModel contractVm)
