@@ -91,7 +91,8 @@ namespace GutoriCorp.Data.Operations
                                    created_on = cont.created_on,
                                    created_by = cont.created_by,
                                    modified_on = cont.modified_on,
-                                   modified_by = cont.modified_by
+                                   modified_by = cont.modified_by,
+                                   vehicle_id = cont.vehicle_id
                                };
             return contractsQry;
         }

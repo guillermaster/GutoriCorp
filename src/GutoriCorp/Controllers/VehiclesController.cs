@@ -50,6 +50,8 @@ namespace GutoriCorp.Controllers
             var model = new VehicleViewModel();
             model.Makes = GetAllMakes();
             model.Models = new List<SelectListItem>();
+            model.Years = GetModelsYears();
+
             return View(model);
         }
 
@@ -201,6 +203,29 @@ namespace GutoriCorp.Controllers
                 {
                     Value = model.id.ToString(),
                     Text = model.name
+                });
+            }
+
+            selectList.Insert(0, new SelectListItem { Value = "", Text = "- Please select a model -" });
+
+            return selectList;
+        }
+
+
+        private IEnumerable<SelectListItem> GetModelsYears()
+        {
+            var selectList = new List<SelectListItem>();
+            //selectList.Add( new SelectListItem{ Value = "", Text = "- Please select a year -" });
+
+            var startYear = DateTime.Now.Year - 15;
+            var endYear = DateTime.Now.Year + 1;
+
+            for(var year = startYear; year <= endYear; year++)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = year.ToString(),
+                    Text = year.ToString()
                 });
             }
 

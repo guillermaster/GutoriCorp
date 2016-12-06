@@ -47,6 +47,24 @@
                         </div>
                     </div>
                 </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="year" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            @Html.DropDownListFor(m => m.year, Model.Years, "- Please select a year -", new { @class = "form-control rounded" })
+                            <span asp-validation-for="year" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="tlc_plate" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            
+                            <span asp-validation-for="tlc_plate" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
             </div>
             <div class="card-footer">
                 <button type="submit" class="mb-sm btn btn-primary ripple">Save</button>

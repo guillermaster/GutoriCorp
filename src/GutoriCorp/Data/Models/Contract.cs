@@ -39,6 +39,8 @@ namespace GutoriCorp.Data.Models
 
         public short modified_by { get; set; }
 
+        public int? vehicle_id { get; set; }
+
         //public virtual GeneralCatalogValue GeneralCatalogValue { get; set; }
 
         //public virtual SystemUser SystemUser { get; set; }

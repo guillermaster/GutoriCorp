@@ -8,6 +8,7 @@ namespace GutoriCorp.Models.BusinessViewModels
 {
     public partial class ContractViewModel
     {
+        [Display(Name = "ID")]
         public long id { get; set; }
 
         [Required]
@@ -25,10 +26,10 @@ namespace GutoriCorp.Models.BusinessViewModels
         public string lessee { get; set; }
 
         [Required]
-        [Display(Name="Contract Type")]
+        [Display(Name="Type")]
         public short contract_type_id { get; set; }
         
-        [Display(Name = "Contract Type")]
+        [Display(Name = "Type")]
         public string contract_type { get; set; }
 
         [Required]
@@ -60,6 +61,7 @@ namespace GutoriCorp.Models.BusinessViewModels
         [Display(Name = "Addicent Penalty Fee")]
         public decimal? accident_penalty_fee { get; set; }
 
+        [Display(Name = "Status")]
         public short status_id { get; set; }
 
         [Display(Name = "Status")]
@@ -72,6 +74,8 @@ namespace GutoriCorp.Models.BusinessViewModels
         public DateTime modified_on { get; set; }
 
         public short modified_by { get; set; }
+
+        public int? vehicle_id { get; set; }
 
         //public virtual GeneralCatalogValue GeneralCatalogValue { get; set; }
 

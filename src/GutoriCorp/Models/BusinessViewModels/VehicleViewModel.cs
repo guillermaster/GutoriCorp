@@ -18,6 +18,7 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         [Required]
         [StringLength(4)]
+        [Display(Name = "Year")]
         public string year { get; set; }
 
         [Required]
@@ -98,5 +99,6 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         public IEnumerable<SelectListItem> Makes { get; set; }
         public IEnumerable<SelectListItem> Models { get; set; }
+        public IEnumerable<SelectListItem> Years { get; set; }
     }
 }
