@@ -46,10 +46,6 @@ namespace GutoriCorp.Data.Models
         [Column("new")]
         public bool is_new { get; set; }
 
-        [Required]
-        [StringLength(20)]
-        public string type_title { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime? date_issued { get; set; }
 
@@ -62,6 +58,15 @@ namespace GutoriCorp.Data.Models
         public DateTime modified_on { get; set; }
 
         public short modified_by { get; set; }
+
+        public short owner_id { get; set; }
+
+        public short? driver_id { get; set; }
+
+        public short status_id { get; set; }
+
+        [Required]
+        public short type_id { get; set; }
 
         //public virtual GeneralCatalogValue GeneralCatalogValue { get; set; }
 

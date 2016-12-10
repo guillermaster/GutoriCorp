@@ -9,6 +9,8 @@ using GutoriCorp.Data;
 using GutoriCorp.Data.Models;
 using GutoriCorp.Data.Operations;
 using GutoriCorp.Models.BusinessViewModels;
+using GutoriCorp.Common;
+using GutoriCorp.Helpers;
 
 namespace GutoriCorp.Controllers
 {
@@ -22,9 +24,10 @@ namespace GutoriCorp.Controllers
         }
 
         // GET: Vehicles
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Vehicle.ToListAsync());
+            var vehicleDataOp = new VehicleData(_context);
+            return View(vehicleDataOp.GetAll());
         }
 
         // GET: Vehicles/Details/5
@@ -48,9 +51,7 @@ namespace GutoriCorp.Controllers
         public IActionResult Create()
         {
             var model = new VehicleViewModel();
-            model.Makes = GetAllMakes();
-            model.Models = new List<SelectListItem>();
-            model.Years = GetModelsYears();
+            PopulateVehicleOptionLists(model);
 
             return View(model);
         }
@@ -60,12 +61,17 @@ namespace GutoriCorp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,_new,body_hull_id,color_id,created_by,created_on,cyl_prop,date_issued,document_num,fuel_id,make_id,model_id,modified_by,modified_on,reading_miles,seats,tlc_plate,type_title,vin_code,wt_sts_lgth,year")] Vehicle vehicle)
+        //public async Task<IActionResult> Create([Bind("id,_new,body_hull_id,color_id,created_by,created_on,cyl_prop,date_issued,document_num,fuel_id,make_id,model_id,modified_by,modified_on,reading_miles,seats,tlc_plate,type_title,vin_code,wt_sts_lgth,year")] Vehicle vehicle)
+        public async Task<IActionResult> Create(VehicleViewModel vehicle)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(vehicle);
-                await _context.SaveChangesAsync();
+                vehicle.modified_by = 1;
+                vehicle.created_by = 1;
+                vehicle.status_id = (short)Enums.GeneralStatus.Active;
+
+                var vehicleDataOp = new VehicleData(_context);
+                await vehicleDataOp.Add(vehicle);
                 return RedirectToAction("Index");
             }
             return View(vehicle);
@@ -171,6 +177,19 @@ namespace GutoriCorp.Controllers
             return _context.Vehicle.Any(e => e.id == id);
         }
 
+        private void PopulateVehicleOptionLists(VehicleViewModel vehicleVm)
+        {
+            var helper = new ControllersHelper(_context);
+            vehicleVm.Owners = helper.GetAllOwners();
+            vehicleVm.Makes = GetAllMakes();
+            vehicleVm.Models = new List<SelectListItem>();
+            vehicleVm.Years = GetModelsYears();
+            vehicleVm.BodyHulls = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.VehicleBodyHull);
+            vehicleVm.Colors = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.Colors);
+            vehicleVm.Fuels = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.Fuels);
+            vehicleVm.Types = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.Types, false);
+        }
+
         private IEnumerable<SelectListItem> GetAllMakes()
         {
             var selectList = new List<SelectListItem>();
@@ -217,10 +236,10 @@ namespace GutoriCorp.Controllers
             var selectList = new List<SelectListItem>();
             //selectList.Add( new SelectListItem{ Value = "", Text = "- Please select a year -" });
 
-            var startYear = DateTime.Now.Year - 15;
-            var endYear = DateTime.Now.Year + 1;
+            var startYear = DateTime.Now.Year + 1;
+            var endYear = DateTime.Now.Year - 15;
 
-            for(var year = startYear; year <= endYear; year++)
+            for(var year = startYear; year >= endYear; year--)
             {
                 selectList.Add(new SelectListItem
                 {

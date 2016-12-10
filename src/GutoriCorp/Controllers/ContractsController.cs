@@ -10,6 +10,7 @@ using GutoriCorp.Models.BusinessViewModels;
 using GutoriCorp.Data.Operations;
 using GutoriCorp.Models.GeneralViewModels;
 using GutoriCorp.Common;
+using GutoriCorp.Helpers;
 
 namespace GutoriCorp.Controllers
 {
@@ -163,46 +164,8 @@ namespace GutoriCorp.Controllers
         {
             return _context.Contract.Any(e => e.id == id);
         }
-
-        private IEnumerable<SelectListItem> GetGeneralCatalogValues(Common.Enums.GeneralCatalog catalog)
-        {
-            var selectList = new List<SelectListItem>();
-
-            var gralCatalogDataOp = new GeneralCatalogData(_context);
-            var contractTypes = gralCatalogDataOp.GetCatalogValues(catalog);
-
-            foreach(var contractType in contractTypes)
-            {
-                selectList.Add(new SelectListItem
-                {
-                    Value = contractType.id.ToString(),
-                    Text = contractType.title
-                });
-            }
-
-            return selectList;
-        }
         
-
-        private IEnumerable<SelectListItem> GetAllOwners()
-        {
-            var selectList = new List<SelectListItem>();
-
-            var ownerDataOp = new OwnerData(_context);
-            var owners = ownerDataOp.GetOwners();
-
-            foreach(var owner in owners)
-            {
-                selectList.Add(new SelectListItem
-                {
-                    Value = owner.id.ToString(),
-                    Text = owner.first_name + " " + owner.last_name
-                });
-            }
-
-            return selectList;
-        }
-
+                
         private IEnumerable<SelectListItem> GetAllDrivers()
         {
             var selectList = new List<SelectListItem>();
@@ -224,11 +187,15 @@ namespace GutoriCorp.Controllers
 
         private void PopulateContractOptionsLists(ContractViewModel contract)
         {
-            contract.Owners = GetAllOwners();
+            var helper = new ControllersHelper(_context);
+
+            contract.Owners = helper.GetAllOwners();
             contract.Drivers = GetAllDrivers();
-            contract.ContractTypes = GetGeneralCatalogValues(Enums.GeneralCatalog.ContractType);
-            contract.ContractFrequencies = GetGeneralCatalogValues(Enums.GeneralCatalog.ContractFrequency);
-            contract.ContractLateFeeTypes = GetGeneralCatalogValues(Enums.GeneralCatalog.ContractLateFeeType);
+
+            
+            contract.ContractTypes = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.ContractType);
+            contract.ContractFrequencies = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.ContractFrequency);
+            contract.ContractLateFeeTypes = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.ContractLateFeeType);
         }
     }
 }

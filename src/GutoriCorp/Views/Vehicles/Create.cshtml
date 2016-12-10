@@ -31,6 +31,56 @@
                 <h5 class="mt0">Make Information</h5>
                 <fieldset>
                     <div class="form-group">
+                        <label asp-for="date_issued" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8" style="margin-top: -30px">
+                            <div id="example-datepicker-container-4" class="rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary">
+                                <div class="mda-form-control">
+                                    <input asp-for="date_issued" id="example-datepicker-4" type="text" data-date="12/13/2016" placeholder="Select a date.." class="form-control rounded" />
+                                    <div class="mda-form-control-line"></div>
+                                </div>
+                            </div>
+                            <span asp-validation-for="date_issued" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="owner_id" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            @Html.DropDownListFor(m => m.owner_id, Model.Owners, new { @class = "form-control rounded" })
+                            <span asp-validation-for="owner_id" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="tlc_plate" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            <input asp-for="tlc_plate" type="text" class="form-control rounded" />
+                            <span asp-validation-for="tlc_plate" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="document_num" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            <input asp-for="document_num" type="text" class="form-control rounded" />
+                            <span asp-validation-for="document_num" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="type_id" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            @Html.DropDownListFor(m => m.type_id, Model.Types, new { @class = "form-control rounded" })
+                            <span asp-validation-for="type_id" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
                         <label asp-for="make_id" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
                             @Html.DropDownListFor(m => m.make_id, Model.Makes, "- Please select a make -", new { @class = "form-control rounded" })
@@ -58,10 +108,76 @@
                 </fieldset>
                 <fieldset>
                     <div class="form-group">
-                        <label asp-for="tlc_plate" class="col-md-2 control-label"></label>
+                        <label asp-for="body_hull_id" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
-                            
-                            <span asp-validation-for="tlc_plate" class="text-danger" />
+                            @Html.DropDownListFor(m => m.body_hull_id, Model.BodyHulls, new { @class = "form-control rounded" })
+                            <span asp-validation-for="body_hull_id" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="color_id" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            @Html.DropDownListFor(m => m.color_id, Model.Colors, new { @class = "form-control rounded" })
+                            <span asp-validation-for="color_id" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="fuel_id" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            @Html.DropDownListFor(m => m.fuel_id, Model.Fuels, new { @class = "form-control rounded" })
+                            <span asp-validation-for="fuel_id" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>                
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="wt_sts_lgth" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            <input asp-for="wt_sts_lgth" type="text" class="form-control rounded" />
+                            <span asp-validation-for="wt_sts_lgth" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="seats" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            <input asp-for="seats" type="text" class="form-control rounded" />
+                            <span asp-validation-for="seats" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="cyl_prop" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            <input asp-for="cyl_prop" type="text" class="form-control rounded" />
+                            <span asp-validation-for="cyl_prop" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="vin_code" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            <input asp-for="vin_code" type="text" class="form-control rounded" />
+                            <span asp-validation-for="vin_code" class="text-danger" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="is_new" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            <div class="checkbox c-checkbox">
+                                <label>
+                                    <input asp-for="is_new" type="checkbox" value="true" /><span class="ion-checkmark-round"></span> Check if vehicle is new
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </fieldset>

@@ -12,7 +12,11 @@ namespace GutoriCorp.Common
             ContractType = 1,
             GeneralStatus = 2,
             ContractFrequency = 3,
-            ContractLateFeeType = 4
+            ContractLateFeeType = 4,
+            VehicleBodyHull = 5,
+            Colors = 6,
+            Fuels = 7,
+            Types = 8
         }
 
         public enum GeneralStatus

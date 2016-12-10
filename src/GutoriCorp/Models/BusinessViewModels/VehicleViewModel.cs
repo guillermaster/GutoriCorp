@@ -10,10 +10,12 @@ namespace GutoriCorp.Models.BusinessViewModels
 {
     public class VehicleViewModel
     {
+        [Display(Name = "ID")]
         public int id { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "VIN Code")]
         public string vin_code { get; set; }
 
         [Required]
@@ -35,9 +37,11 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         [Required]
         [StringLength(10)]
+        [Display(Name = "TLC Plate")]
         public string tlc_plate { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Document Number")]
         public string document_num { get; set; }
 
         [Required]
@@ -63,12 +67,9 @@ namespace GutoriCorp.Models.BusinessViewModels
         [Required]
         [Display(Name = "Is New?")]
         public bool is_new { get; set; }
-
-        [Required]
-        [StringLength(20)]
-        public string type_title { get; set; }
-
+        
         [Column(TypeName = "date")]
+        [Display(Name = "Date Issued")]
         public DateTime? date_issued { get; set; }
 
         [Required]
@@ -83,22 +84,45 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         public short modified_by { get; set; }
 
-        //public virtual GeneralCatalogValue GeneralCatalogValue { get; set; }
+        [Required]
+        [Display(Name = "Owner")]
+        public short owner_id { get; set; }
 
-        //public virtual GeneralCatalogValue GeneralCatalogValue1 { get; set; }
+        [Display(Name = "Driver")]
+        public short? driver_id { get; set; }
 
-        //public virtual GeneralCatalogValue GeneralCatalogValue2 { get; set; }
+        [Display(Name = "Status")]
+        public short status_id { get; set; }
 
-        //public virtual SystemUser SystemUser { get; set; }
+        [Required]
+        [Display(Name = "Type")]
+        public short type_id { get; set; }
 
-        //public virtual SystemUser SystemUser1 { get; set; }
+        public string owner { get; set; }
 
-        //public virtual VehicleMake VehicleMake { get; set; }
+        public string make { get; set; }
 
-        //public virtual VehicleMakeModel VehicleMakeModel { get; set; }
+        public string model { get; set; }
 
+        public string body_hull { get; set; }
+
+        public string color { get; set; }
+
+        public string fuel { get; set; }
+
+        public string status { get; set; }
+
+        public string type { get; set; }
+
+        public string driver { get; set; }
+
+        public IEnumerable<SelectListItem> Owners { get; set; }
         public IEnumerable<SelectListItem> Makes { get; set; }
         public IEnumerable<SelectListItem> Models { get; set; }
         public IEnumerable<SelectListItem> Years { get; set; }
+        public IEnumerable<SelectListItem> BodyHulls { get; set; }
+        public IEnumerable<SelectListItem> Colors { get; set; }
+        public IEnumerable<SelectListItem> Fuels { get; set; }
+        public IEnumerable<SelectListItem> Types { get; set; }
     }
 }

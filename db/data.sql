@@ -96,6 +96,159 @@ INSERT INTO [dbo].[GeneralCatalogValue]
            ,4
            ,'Late fee type 2')
 
+
+--  vehicle body hull
+INSERT INTO [dbo].[GeneralCatalog]
+           ([title])
+     VALUES
+           ('Body Hull')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (9
+           ,5
+           ,'Sedan')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (10
+           ,5
+           ,'Van')
+
+
+--  colors
+INSERT INTO [dbo].[GeneralCatalog]
+           ([title])
+     VALUES
+           ('Color')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (11
+           ,6
+           ,'White')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (12
+           ,6
+           ,'Silver')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (13
+           ,6
+           ,'Black')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (14
+           ,6
+           ,'Grey')
+
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (15
+           ,6
+           ,'Blue')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (16
+           ,6
+           ,'Red')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (17
+           ,6
+           ,'Brown')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (18
+           ,6
+           ,'Green')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (19
+           ,6
+           ,'Yellow')
+
+-- Fuel
+INSERT INTO [dbo].[GeneralCatalog]
+           ([title])
+     VALUES
+           ('Fuel')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (20
+           ,7
+           ,'Gas')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (21
+           ,7
+           ,'Hybrid')
+
+-- Vehicle Type
+INSERT INTO [dbo].[GeneralCatalog]
+           ([title])
+     VALUES
+           ('Vehicle Type')
+
+INSERT INTO [dbo].[GeneralCatalogValue]
+           ([id]
+           ,[catalog_id]
+           ,[title])
+     VALUES
+           (22
+           ,8
+           ,'Vehicle')
+
 -- SYSTEM USER
 INSERT INTO [dbo].[SystemUser]
            ([first_name]
