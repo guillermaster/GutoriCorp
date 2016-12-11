@@ -24,27 +24,25 @@ namespace GutoriCorp.Controllers
         }
 
         // GET: Vehicles
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var vehicleDataOp = new VehicleData(_context);
-            return View(vehicleDataOp.GetAll());
+            return View(await vehicleDataOp.GetAll());
         }
 
         // GET: Vehicles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            try
+            {
+                var vehicleDataOp = new VehicleData(_context);
+                var vehicle = await vehicleDataOp.Get(id);
+                return View(vehicle);
+            }
+            catch (DbUpdateConcurrencyException)
             {
                 return NotFound();
             }
-
-            var vehicle = await _context.Vehicle.SingleOrDefaultAsync(m => m.id == id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
-
-            return View(vehicle);
         }
 
         // GET: Vehicles/Create

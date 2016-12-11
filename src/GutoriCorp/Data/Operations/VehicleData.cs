@@ -1,5 +1,6 @@
 ﻿using GutoriCorp.Data.Models;
 using GutoriCorp.Models.BusinessViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,29 @@ namespace GutoriCorp.Data.Operations
             await _context.SaveChangesAsync();
         }
 
-        public List<VehicleViewModel> GetAll()
+        public async Task<VehicleViewModel> Get(long? id)
+        {
+            if (id == null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            var vehiclesQry = QueryAllData();
+
+            vehiclesQry = vehiclesQry.Where(v => v.id == id);
+
+            var vehicle = await vehiclesQry.SingleOrDefaultAsync(m => m.id == id);
+            if (vehicle == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            return vehicle;
+        }
+
+        public async Task<List<VehicleViewModel>> GetAll()
         {
             var vehiclesQry = QueryAllData();
-            return vehiclesQry.ToList();
+            return await vehiclesQry.ToListAsync();
         }
 
         private IQueryable<VehicleViewModel> QueryAllData()
