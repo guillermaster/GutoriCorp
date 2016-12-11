@@ -31,6 +31,23 @@ namespace GutoriCorp.Data.Operations
             await _context.SaveChangesAsync();
         }
 
+        public void SetDriver(int vehicleId, short driverId, short userId)
+        {
+            var vehicle = new Vehicle
+            {
+                id = vehicleId,
+                driver_id = driverId,
+                modified_by = userId,
+                modified_on = DateTime.Now
+            };
+
+            _context.Attach(vehicle);
+            _context.Entry(vehicle).Property(c => c.driver_id).IsModified = true;
+            _context.Entry(vehicle).Property(c => c.modified_by).IsModified = true;
+            _context.Entry(vehicle).Property(c => c.modified_on).IsModified = true;
+            _context.SaveChanges();
+        }
+
         public async Task<VehicleViewModel> Get(long? id)
         {
             if (id == null)
@@ -50,9 +67,9 @@ namespace GutoriCorp.Data.Operations
             return vehicle;
         }
 
-        public async Task<List<VehicleViewModel>> GetAll()
+        public async Task<List<VehicleViewModel>> GetAll(bool elementaryData = false)
         {
-            var vehiclesQry = QueryAllData();
+            var vehiclesQry = elementaryData ? QueryElementaryData() : QueryAllData();
             return await vehiclesQry.ToListAsync();
         }
 
@@ -75,9 +92,9 @@ namespace GutoriCorp.Data.Operations
                                {
                                    id = veh.id,
                                    owner_id = veh.owner_id,
-                                   owner = own.first_name + " " + own.last_name,
+                                   owner = own.ToString(),
                                    driver_id = veh.driver_id,
-                                   driver = drivVeh != null ? drivVeh.first_name + " " + drivVeh.last_name : string.Empty,
+                                   driver = drivVeh != null ? drivVeh.ToString() : string.Empty,
                                    vin_code = veh.vin_code,
                                    year = veh.year,
                                    make_id = veh.make_id,
@@ -104,11 +121,29 @@ namespace GutoriCorp.Data.Operations
                                    status = stat.title,
                                    created_on = veh.created_on,
                                    created_by = veh.created_by,
-                                   created_by_name = cuser.first_name + " " + cuser.last_name,
+                                   created_by_name = cuser.ToString(),
                                    modified_on = veh.modified_on,
                                    modified_by = veh.modified_by,
-                                   modified_by_name = muser.first_name + " " + muser.last_name,
+                                   modified_by_name = muser.ToString()
                                };
+            return vehiclesQry;
+        }
+
+        private IQueryable<VehicleViewModel> QueryElementaryData()
+        {
+            var vehiclesQry = from veh in _context.Vehicle
+                              join make in _context.VehicleMake on veh.make_id equals make.id
+                              join model in _context.VehicleMakeModel on veh.model_id equals model.id
+                              select new VehicleViewModel
+                              {
+                                  id = veh.id,
+                                  year = veh.year,
+                                  make_id = veh.make_id,
+                                  make = make.name,
+                                  model_id = veh.model_id,
+                                  model = model.name,
+                                  tlc_plate = veh.tlc_plate
+                              };
             return vehiclesQry;
         }
 

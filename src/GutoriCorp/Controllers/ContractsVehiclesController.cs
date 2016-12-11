@@ -6,11 +6,21 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GutoriCorp.Models.BusinessViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using GutoriCorp.Data.Operations;
+using GutoriCorp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace GutoriCorp.Controllers
 {
     public class ContractsVehiclesController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public ContractsVehiclesController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         // GET: ContractsVehicles
         public ActionResult Index()
         {
@@ -22,53 +32,53 @@ namespace GutoriCorp.Controllers
         {
             return View();
         }
-
-        // GET: ContractsVehicles/Create
-        public ActionResult Create()
-        {
-            var model = new ContractVehicleViewModel();
-            model.AvailableVehicles = new List<SelectListItem>();
-            return View(model);
-        }
-
-        // POST: ContractsVehicles/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
 
         // GET: ContractsVehicles/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(long id)
         {
-            return View();
+            var model = await GetViewModel(id);
+            SetVehiclesOptions(model);
+            return View(model);
         }
 
         // POST: ContractsVehicles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(long id, ContractVehicleViewModel model)
         {
-            try
+            if (id != model.contract_id)
             {
-                // TODO: Add update logic here
+                return NotFound();
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (ModelState.IsValid)
             {
-                return View();
+                try
+                {
+                    // set vehicle in contract
+                    var contractDataOp = new ContractData(_context);
+                    contractDataOp.SetVehicle(id, model.vehicle_id, 1);
+
+                    // set driver in vehicle
+                    var vehicleDataOp = new VehicleData(_context);
+                    vehicleDataOp.SetDriver(model.vehicle_id, model.lessee_id, 1);
+                    
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    //if (!VehicleExists(vehicle.id))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                        throw;
+                    //}
+                }
+                return RedirectToAction("Index", "Contracts");
             }
+            return View(model);
         }
 
         // GET: ContractsVehicles/Delete/5
@@ -92,6 +102,48 @@ namespace GutoriCorp.Controllers
             {
                 return View();
             }
+        }
+
+        private async  Task<ContractVehicleViewModel> GetViewModel(long contractId)
+        {
+            var contractDataOp = new ContractData(_context);
+            var contract = await contractDataOp.Get(contractId);
+            var model = new ContractVehicleViewModel
+            {
+                contract_id = contract.id,
+                lessee_id = contract.lessee_id,
+                LesseeName = contract.lessee,
+                LessorName = contract.lessor,
+                vehicle_id = contract.vehicle_id ?? 0
+            };
+
+            return model;
+        }
+
+        private async void SetVehiclesOptions(ContractVehicleViewModel model)
+        {
+            // set the list of vehicle options
+            var vehicleDataOp = new VehicleData(_context);
+            var vehicles = await vehicleDataOp.GetAll(true);
+            var vehiclesOptions = new List<SelectListItem>();
+            vehiclesOptions.Add(new SelectListItem
+            {
+                Value = string.Empty,
+                Text = " - Select -"
+            });
+
+            // add elements to the options list
+            foreach (var vehicle in vehicles)
+            {
+                vehiclesOptions.Add(new SelectListItem
+                {
+                    Value = vehicle.id.ToString(),
+                    Text = vehicle.ToString(),
+                    Selected = vehicle.id == model.vehicle_id
+                });
+            }
+
+            model.AvailableVehicles = vehiclesOptions;
         }
     }
 }

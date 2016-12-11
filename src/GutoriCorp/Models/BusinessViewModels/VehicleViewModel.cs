@@ -128,5 +128,10 @@ namespace GutoriCorp.Models.BusinessViewModels
         public IEnumerable<SelectListItem> Colors { get; set; }
         public IEnumerable<SelectListItem> Fuels { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
+
+        public override string ToString()
+        {
+            return make + " " + model + " " + year + " - " + tlc_plate;
+        }
     }
 }

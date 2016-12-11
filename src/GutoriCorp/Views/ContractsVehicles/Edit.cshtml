@@ -13,7 +13,7 @@
 </div>
 
 <div class="container container-lg">
-    <form asp-action="Create" name="formCreateContract" novalidate="" class="form-validate">
+    <form asp-action="Edit" name="formSetContractVehicle" novalidate="" class="form-validate">
         <div class="card">
             <div class="card-heading">
                 <!-- START dropdown-->
@@ -30,9 +30,27 @@
             <div class="card-body pt0">
                 <fieldset>
                     <div class="form-group">
-                        <label asp-for="ContractNumber" class="col-md-2 control-label"></label>
+                        <label asp-for="contract_id" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
-                            @Html.DisplayTextFor(m => m.ContractNumber);
+                            @Html.DisplayTextFor(m => m.contract_id)
+                            @Html.HiddenFor(m => m.contract_id)
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="LessorName" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            @Html.DisplayFor(model => model.LessorName)
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="lessee_id" class="col-md-2 control-label"></label>
+                        <div class="col-md-5 col-sm-8">
+                            @Html.DisplayFor(model => model.LesseeName)
+                            @Html.HiddenFor(model => model.lessee_id)
                         </div>
                     </div>
                 </fieldset>
@@ -40,7 +58,7 @@
                     <div class="form-group">
                         <label asp-for="vehicle_id" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
-                            @Html.DropDownListFor(m => m.AvailableVehicles, Model.AvailableVehicles, "- Please select a lessee -", new { @class = "form-control rounded" })
+                            @Html.DropDownListFor(m => m.vehicle_id, Model.AvailableVehicles, new { @class = "form-control rounded" })
                             <span asp-validation-for="vehicle_id" class="text-danger" />
                         </div>
                     </div>

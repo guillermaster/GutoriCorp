@@ -33,6 +33,23 @@ namespace GutoriCorp.Data.Operations
             await _context.SaveChangesAsync();
         }
 
+        public void SetVehicle(long contractId, int vehicleId, short userId)
+        {
+            var contract = new Contract
+            {
+                id = contractId,
+                vehicle_id = vehicleId,
+                modified_by = userId,
+                modified_on = DateTime.Now
+            };
+
+            _context.Attach(contract);
+            _context.Entry(contract).Property(c => c.vehicle_id).IsModified = true;
+            _context.Entry(contract).Property(c => c.modified_by).IsModified = true;
+            _context.Entry(contract).Property(c => c.modified_on).IsModified = true;
+            _context.SaveChanges();
+        }
+
         public List<ContractViewModel> GetAll()
         {
             var contractsQry = QueryAllData();
@@ -72,9 +89,9 @@ namespace GutoriCorp.Data.Operations
                                {
                                    id = cont.id,
                                    lessor_id = cont.lessor_id,
-                                   lessor = own.first_name + " " + own.last_name,
+                                   lessor = own.ToString(),
                                    lessee_id = cont.lessee_id,
-                                   lessee = driv.first_name + " " + driv.last_name,
+                                   lessee = driv.ToString(),
                                    contract_type_id = cont.contract_type_id,
                                    contract_type = contType.title,
                                    frequency_id = cont.frequency_id,

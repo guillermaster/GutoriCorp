@@ -52,5 +52,10 @@ namespace GutoriCorp.Data.Models
         //public virtual ICollection<DriverLicense> DriverLicenses { get; set; }
 
         //public virtual SystemUser SystemUser1 { get; set; }
+
+        public override string ToString()
+        {
+            return first_name + " " + last_name;
+        }
     }
 }

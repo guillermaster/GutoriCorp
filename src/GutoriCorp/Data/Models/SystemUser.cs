@@ -20,7 +20,7 @@ namespace GutoriCorp.Data.Models
         public string user_name { get; set; }
 
         [StringLength(30)]
-        public string password { get; set; }
+        public string user_pwd { get; set; }
 
         public short status_id { get; set; }
 
@@ -31,5 +31,10 @@ namespace GutoriCorp.Data.Models
         public DateTime modified_on { get; set; }
 
         public short modified_by { get; set; }
+
+        public override string ToString()
+        {
+            return first_name + " " + last_name;
+        }
     }
 }
