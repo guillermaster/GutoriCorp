@@ -23,6 +23,14 @@ namespace GutoriCorp.Data.Operations
             await _context.SaveChangesAsync();
         }
 
+        public async Task Update(VehicleViewModel vehicle)
+        {
+            var vehicleDb = GetEntity(vehicle);
+            vehicleDb.id = vehicle.id;
+            _context.Update(vehicleDb);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<VehicleViewModel> Get(long? id)
         {
             if (id == null)
@@ -61,6 +69,8 @@ namespace GutoriCorp.Data.Operations
                                join fuel in _context.GeneralCatalogValues on veh.fuel_id equals fuel.id
                                join stat in _context.GeneralCatalogValues on veh.status_id equals stat.id
                                join type in _context.GeneralCatalogValues on veh.type_id equals type.id
+                               join cuser in _context.SystemUser on veh.created_by equals cuser.id
+                               join muser in _context.SystemUser on veh.modified_by equals muser.id
                                select new VehicleViewModel
                                {
                                    id = veh.id,
@@ -80,6 +90,7 @@ namespace GutoriCorp.Data.Operations
                                    document_num = veh.document_num,
                                    color_id = veh.color_id,
                                    color = color.title,
+                                   seats = veh.seats,
                                    wt_sts_lgth = veh.wt_sts_lgth,
                                    fuel_id = veh.fuel_id,
                                    fuel = fuel.title,
@@ -93,8 +104,10 @@ namespace GutoriCorp.Data.Operations
                                    status = stat.title,
                                    created_on = veh.created_on,
                                    created_by = veh.created_by,
+                                   created_by_name = cuser.first_name + " " + cuser.last_name,
                                    modified_on = veh.modified_on,
-                                   modified_by = veh.modified_by
+                                   modified_by = veh.modified_by,
+                                   modified_by_name = muser.first_name + " " + muser.last_name,
                                };
             return vehiclesQry;
         }

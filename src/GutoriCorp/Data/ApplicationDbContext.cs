@@ -32,5 +32,6 @@ namespace GutoriCorp.Data
         public virtual DbSet<Vehicle> Vehicle { get; set; }
         public virtual DbSet<VehicleMake> VehicleMake { get; set; }
         public virtual DbSet<VehicleMakeModel> VehicleMakeModel { get; set; }
+        public virtual DbSet<SystemUser> SystemUser { get; set; }
     }
 }

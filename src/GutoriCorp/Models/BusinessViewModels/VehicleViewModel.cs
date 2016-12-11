@@ -116,6 +116,10 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         public string driver { get; set; }
 
+        public string created_by_name { get; set; }
+
+        public string modified_by_name { get; set; }
+
         public IEnumerable<SelectListItem> Owners { get; set; }
         public IEnumerable<SelectListItem> Makes { get; set; }
         public IEnumerable<SelectListItem> Models { get; set; }

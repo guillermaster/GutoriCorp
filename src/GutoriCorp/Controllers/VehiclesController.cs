@@ -78,17 +78,17 @@ namespace GutoriCorp.Controllers
         // GET: Vehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
+            {
+                var vehicleDataOp = new VehicleData(_context);
+                var vehicle = await vehicleDataOp.Get(id);
+                PopulateVehicleOptionLists(vehicle);
+                return View(vehicle);
+            }
+            catch (DbUpdateConcurrencyException)
             {
                 return NotFound();
             }
-
-            var vehicle = await _context.Vehicle.SingleOrDefaultAsync(m => m.id == id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
-            return View(vehicle);
         }
 
         // POST: Vehicles/Edit/5
@@ -96,7 +96,7 @@ namespace GutoriCorp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,_new,body_hull_id,color_id,created_by,created_on,cyl_prop,date_issued,document_num,fuel_id,make_id,model_id,modified_by,modified_on,reading_miles,seats,tlc_plate,type_title,vin_code,wt_sts_lgth,year")] Vehicle vehicle)
+        public async Task<IActionResult> Edit(int id, VehicleViewModel vehicle)
         {
             if (id != vehicle.id)
             {
@@ -107,8 +107,10 @@ namespace GutoriCorp.Controllers
             {
                 try
                 {
-                    _context.Update(vehicle);
-                    await _context.SaveChangesAsync();
+                    var vehicleDataOp = new VehicleData(_context);
+                    vehicle.modified_by = 1;
+                    vehicle.modified_on = DateTime.Now;
+                    await vehicleDataOp.Update(vehicle);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -180,7 +182,7 @@ namespace GutoriCorp.Controllers
             var helper = new ControllersHelper(_context);
             vehicleVm.Owners = helper.GetAllOwners();
             vehicleVm.Makes = GetAllMakes();
-            vehicleVm.Models = new List<SelectListItem>();
+            vehicleVm.Models = vehicleVm.make_id != 0 ? GetMakeModels(vehicleVm.make_id, vehicleVm.model_id) : new List<SelectListItem>();
             vehicleVm.Years = GetModelsYears();
             vehicleVm.BodyHulls = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.VehicleBodyHull);
             vehicleVm.Colors = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.Colors);
@@ -207,19 +209,20 @@ namespace GutoriCorp.Controllers
             return selectList;
         }
 
-        private IEnumerable<SelectListItem> GetMakeModels(short modelId)
+        private IEnumerable<SelectListItem> GetMakeModels(short makeId, short modelId = 0)
         {
             var selectList = new List<SelectListItem>();
 
             var vehMakesDataOp = new VehicleMakeData(_context);
-            var models = vehMakesDataOp.GetMakeModels(modelId);
+            var models = vehMakesDataOp.GetMakeModels(makeId);
 
             foreach (var model in models)
             {
                 selectList.Add(new SelectListItem
                 {
                     Value = model.id.ToString(),
-                    Text = model.name
+                    Text = model.name,
+                    Selected = model.id == modelId
                 });
             }
 
