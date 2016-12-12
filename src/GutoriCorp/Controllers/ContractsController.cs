@@ -33,12 +33,12 @@ namespace GutoriCorp.Controllers
         }
 
         // GET: Contracts/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public IActionResult Details(long? id)
         {
             try
             {
                 var contractDataOp = new ContractData(_context);
-                var contract = await contractDataOp.Get(id);
+                var contract = contractDataOp.Get(id);
                 PopulateContractOptionsLists(contract);
                 return View(contract);
             }
@@ -81,12 +81,12 @@ namespace GutoriCorp.Controllers
         }
 
         // GET: Contracts/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public IActionResult Edit(long? id)
         {
             try
             {
                 var contractDataOp = new ContractData(_context);
-                var contract = await contractDataOp.Get(id);
+                var contract = contractDataOp.Get(id);
                 PopulateContractOptionsLists(contract);
                 return View(contract);
             }

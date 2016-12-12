@@ -48,18 +48,18 @@ namespace GutoriCorp.Data.Operations
             _context.SaveChanges();
         }
 
-        public async Task<VehicleViewModel> Get(long? id)
+        public VehicleViewModel Get(long? id, bool elementaryData = false)
         {
             if (id == null)
             {
                 throw new KeyNotFoundException();
             }
 
-            var vehiclesQry = QueryAllData();
+            var vehiclesQry = elementaryData ? QueryElementaryData() : QueryAllData();
 
             vehiclesQry = vehiclesQry.Where(v => v.id == id);
 
-            var vehicle = await vehiclesQry.SingleOrDefaultAsync(m => m.id == id);
+            var vehicle = vehiclesQry.SingleOrDefault(m => m.id == id);
             if (vehicle == null)
             {
                 throw new KeyNotFoundException();
@@ -71,6 +71,18 @@ namespace GutoriCorp.Data.Operations
         {
             var vehiclesQry = elementaryData ? QueryElementaryData() : QueryAllData();
             return await vehiclesQry.ToListAsync();
+        }
+
+        /// <summary>
+        /// Returns a list of all vehicles without driver
+        /// </summary>
+        /// <param name="elementaryData">True to load only the ID and basic data as make-model-year; false to load all vehicle data</param>
+        /// <returns></returns>
+        public List<VehicleViewModel> GetAllFree(bool elementaryData = false)
+        {
+            var vehiclesQry = QueryElementaryData();
+            vehiclesQry = vehiclesQry.Where(v => v.driver_id == null);
+            return vehiclesQry.ToList();
         }
 
         private IQueryable<VehicleViewModel> QueryAllData()
@@ -142,7 +154,8 @@ namespace GutoriCorp.Data.Operations
                                   make = make.name,
                                   model_id = veh.model_id,
                                   model = model.name,
-                                  tlc_plate = veh.tlc_plate
+                                  tlc_plate = veh.tlc_plate,
+                                  driver_id = veh.driver_id
                               };
             return vehiclesQry;
         }

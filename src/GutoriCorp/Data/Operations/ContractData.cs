@@ -57,7 +57,7 @@ namespace GutoriCorp.Data.Operations
         }
 
        
-        public async Task<ContractViewModel> Get(long? id)
+        public ContractViewModel Get(long? id)
         {
             if (id == null)
             {
@@ -68,7 +68,7 @@ namespace GutoriCorp.Data.Operations
 
             contractsQry = contractsQry.Where(c => c.id == id);
 
-            var contract = await contractsQry.SingleOrDefaultAsync(m => m.id == id);
+            var contract = contractsQry.SingleOrDefault(m => m.id == id);
             if (contract == null)
             {
                 throw new KeyNotFoundException();

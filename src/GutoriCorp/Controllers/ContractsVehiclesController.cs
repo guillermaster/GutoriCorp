@@ -35,9 +35,9 @@ namespace GutoriCorp.Controllers
         
 
         // GET: ContractsVehicles/Edit/5
-        public async Task<ActionResult> Edit(long id)
+        public ActionResult Edit(long id)
         {
-            var model = await GetViewModel(id);
+            var model = GetViewModel(id);
             SetVehiclesOptions(model);
             return View(model);
         }
@@ -104,10 +104,10 @@ namespace GutoriCorp.Controllers
             }
         }
 
-        private async  Task<ContractVehicleViewModel> GetViewModel(long contractId)
+        private ContractVehicleViewModel GetViewModel(long contractId)
         {
             var contractDataOp = new ContractData(_context);
-            var contract = await contractDataOp.Get(contractId);
+            var contract = contractDataOp.Get(contractId);
             var model = new ContractVehicleViewModel
             {
                 contract_id = contract.id,
@@ -120,17 +120,43 @@ namespace GutoriCorp.Controllers
             return model;
         }
 
-        private async void SetVehiclesOptions(ContractVehicleViewModel model)
+        private void SetVehiclesOptions(ContractVehicleViewModel model)
         {
             // set the list of vehicle options
             var vehicleDataOp = new VehicleData(_context);
-            var vehicles = await vehicleDataOp.GetAll(true);
+            var vehicles = vehicleDataOp.GetAllFree(true);
+            
             var vehiclesOptions = new List<SelectListItem>();
-            vehiclesOptions.Add(new SelectListItem
+
+            if (vehicles.Count > 0)
             {
-                Value = string.Empty,
-                Text = " - Select -"
-            });
+                vehiclesOptions.Add(new SelectListItem
+                {
+                    Value = string.Empty,
+                    Text = " - Select -"
+                });
+            }
+            else
+            {
+                if (model.vehicle_id > 0)
+                {
+                    var assignedVehicle = vehicleDataOp.Get(model.vehicle_id);
+                    vehiclesOptions.Add(new SelectListItem
+                    {
+                        Value = assignedVehicle.id.ToString(),
+                        Text = assignedVehicle.ToString(),
+                        Selected = true
+                    });
+                }
+                else
+                {
+                    vehiclesOptions.Add(new SelectListItem
+                    {
+                        Value = string.Empty,
+                        Text = " - No available vehicles -"
+                    });
+                }
+            }
 
             // add elements to the options list
             foreach (var vehicle in vehicles)
@@ -142,7 +168,7 @@ namespace GutoriCorp.Controllers
                     Selected = vehicle.id == model.vehicle_id
                 });
             }
-
+            
             model.AvailableVehicles = vehiclesOptions;
         }
     }

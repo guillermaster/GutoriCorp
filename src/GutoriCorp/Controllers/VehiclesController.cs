@@ -31,12 +31,12 @@ namespace GutoriCorp.Controllers
         }
 
         // GET: Vehicles/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             try
             {
                 var vehicleDataOp = new VehicleData(_context);
-                var vehicle = await vehicleDataOp.Get(id);
+                var vehicle = vehicleDataOp.Get(id);
                 return View(vehicle);
             }
             catch (DbUpdateConcurrencyException)
@@ -76,12 +76,12 @@ namespace GutoriCorp.Controllers
         }
 
         // GET: Vehicles/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             try
             {
                 var vehicleDataOp = new VehicleData(_context);
-                var vehicle = await vehicleDataOp.Get(id);
+                var vehicle = vehicleDataOp.Get(id);
                 PopulateVehicleOptionLists(vehicle);
                 return View(vehicle);
             }
