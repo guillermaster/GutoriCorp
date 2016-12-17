@@ -41,6 +41,8 @@ namespace GutoriCorp.Data.Models
 
         public int? vehicle_id { get; set; }
 
+        public short? due_day { get; set; }
+
         //public virtual GeneralCatalogValue GeneralCatalogValue { get; set; }
 
         //public virtual SystemUser SystemUser { get; set; }
@@ -56,6 +58,6 @@ namespace GutoriCorp.Data.Models
         //public virtual Owner Owner { get; set; }
 
         //public virtual GeneralCatalogValue GeneralCatalogValue3 { get; set; }
-        
+
     }
 }

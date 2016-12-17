@@ -77,6 +77,11 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         public int? vehicle_id { get; set; }
 
+        [Display(Name = "Due Day")]
+        public short? due_day { get; set; }
+
+        public string due_day_desc { get; set; }
+
         //public virtual GeneralCatalogValue GeneralCatalogValue { get; set; }
 
         //public virtual SystemUser SystemUser { get; set; }

@@ -92,6 +92,16 @@
                 </fieldset>
 
                 <h5 class="mt0">Fees</h5>
+                <fieldset id="fsDueDay">
+                    <div class="form-group">
+                        <label asp-for="due_day" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="due_day" type="number" class="form-control" min="1" max="7" />
+                            <br />
+                            <span class="text-danger" id="weekdays_help">{1=Monday, 2=Tuesday, ...., 7=Sunday}</span>
+                        </div>
+                    </div>
+                </fieldset>
                 <fieldset>
                     <div class="form-group">
                         <label asp-for="rental_fee" class="col-md-2 control-label"></label>
@@ -158,3 +168,21 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<script type="text/javascript">
+    $('#frequency_id').change(function () {
+        var value = $(this).val();
+        if (value !== '') {
+            $('#fsDueDay').show();
+            var dueDayCtrl = document.getElementById("due_day");
+            if (value === '5') {
+                dueDayCtrl.setAttribute("max", "7");
+                $('#weekdays_help').show();
+            } else {
+                dueDayCtrl.setAttribute("max", "30");
+                $('#weekdays_help').hide();
+            }
+        } else {
+            $('#fsDueDay').hide();
+        }
+    });
+</script>

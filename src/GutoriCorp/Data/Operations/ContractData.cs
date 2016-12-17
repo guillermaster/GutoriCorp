@@ -128,6 +128,7 @@ namespace GutoriCorp.Data.Operations
                 late_fee = contractVm.late_fee,
                 thirdparty_fee = contractVm.thirdparty_fee,
                 accident_penalty_fee = contractVm.accident_penalty_fee,
+                due_day = contractVm.due_day,
                 created_on = DateTime.Now,
                 created_by = contractVm.created_by,
                 modified_on = DateTime.Now,

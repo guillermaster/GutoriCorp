@@ -68,7 +68,7 @@
                     <div class="form-group">
                         <label asp-for="contract_type_id" class="col-md-2 control-label"></label>
                         <div class="col-md-10">
-                            @Html.DropDownListFor(m => m.contract_type_id, Model.ContractTypes, "- Please select a contract type -", new { @class = "form-control rounded" })
+                            @Html.DropDownListFor(m => m.contract_type_id, Model.ContractTypes, new { @class = "form-control rounded" })
                         </div>
                     </div>
                 </fieldset>
@@ -76,7 +76,7 @@
                     <div class="form-group">
                         <label asp-for="frequency_id" class="col-md-2 control-label"></label>
                         <div class="col-md-10">
-                            @Html.DropDownListFor(m => m.frequency_id, Model.ContractFrequencies, "- Please select a frequency -", new { @class = "form-control rounded" })
+                            @Html.DropDownListFor(m => m.frequency_id, Model.ContractFrequencies, new { @class = "form-control rounded" })
                             <span asp-validation-for="frequency_id" class="text-danger" />
                         </div>
                     </div>
@@ -85,13 +85,23 @@
                     <div class="form-group">
                         <label asp-for="late_fee_type_id" class="col-md-2 control-label"></label>
                         <div class="col-md-10">
-                            @Html.DropDownListFor(m => m.late_fee_type_id, Model.ContractLateFeeTypes, "- Please select a late fee type -", new { @class = "form-control rounded" })
+                            @Html.DropDownListFor(m => m.late_fee_type_id, Model.ContractLateFeeTypes, new { @class = "form-control rounded" })
                             <span asp-validation-for="late_fee_type" class="text-danger" />
                         </div>
                     </div>
                 </fieldset>
 
                 <h5 class="mt0">Fees</h5>
+                <fieldset id="fsDueDay" style="display: none">
+                    <div class="form-group">
+                        <label asp-for="due_day" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="due_day" type="number" class="form-control" min="1" max="7" />
+                            <br />
+                            <span class="text-danger" id="weekdays_help">{1=Monday, 2=Tuesday, ...., 7=Sunday}</span>
+                        </div>
+                    </div>
+                </fieldset>
                 <fieldset>
                     <div class="form-group">
                         <label asp-for="rental_fee" class="col-md-2 control-label"></label>
@@ -157,3 +167,22 @@
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
+
+<script type="text/javascript">
+    $('#frequency_id').change(function () {
+        var value = $(this).val();
+        if (value !== '') {
+            $('#fsDueDay').show();
+            var dueDayCtrl = document.getElementById("due_day");
+            if (value === '5') {
+                dueDayCtrl.setAttribute("max", "7");
+                $('#weekdays_help').show();
+            } else {
+                dueDayCtrl.setAttribute("max", "30");
+                $('#weekdays_help').hide();
+            }
+        } else {
+            $('#fsDueDay').hide();
+        }
+    });
+</script>

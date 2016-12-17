@@ -63,7 +63,6 @@ namespace GutoriCorp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("id,accident_penalty_fee,contract_date,contract_type_id,created_by,created_on,frequency_id,late_fee,late_fee_type,lessee_id,lessor_id,modified_by,modified_on,rental_fee,status_id,thirdparty_fee")] ContractViewModel contract)
         public async Task<IActionResult> Create(ContractViewModel contract)
         {
             if (ModelState.IsValid)
@@ -178,7 +177,7 @@ namespace GutoriCorp.Controllers
                 selectList.Add(new SelectListItem
                 {
                     Value = driver.id.ToString(),
-                    Text = driver.first_name + " " + driver.last_name
+                    Text = driver.ToString()
                 });
             }
 
@@ -191,8 +190,7 @@ namespace GutoriCorp.Controllers
 
             contract.Owners = helper.GetAllOwners();
             contract.Drivers = GetAllDrivers();
-
-            
+                        
             contract.ContractTypes = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.ContractType);
             contract.ContractFrequencies = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.ContractFrequency);
             contract.ContractLateFeeTypes = helper.GetGeneralCatalogValues(Enums.GeneralCatalog.ContractLateFeeType);
