@@ -22,9 +22,11 @@ namespace GutoriCorp.Controllers
         }
 
         // GET: Payments
-        public async Task<IActionResult> Index()
+        public IActionResult Index(long id)
         {
-            return View(await _context.Payment.ToListAsync());
+            var paymentData = new PaymentData(_context);
+            var payments = paymentData.GetAll(id);
+            return View(payments);
         }
 
         // GET: Payments/Details/5
@@ -72,7 +74,7 @@ namespace GutoriCorp.Controllers
                 payment.created_by = 1;
                 payment.modified_by = 1;
                 await paymentData.Add(payment);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = payment.contract_id });
             }
             return View(payment);
         }

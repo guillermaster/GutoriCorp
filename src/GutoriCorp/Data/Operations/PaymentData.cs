@@ -23,6 +23,53 @@ namespace GutoriCorp.Data.Operations
             await _context.SaveChangesAsync();
         }
 
+        public List<PaymentViewModel> GetAll(long contractId)
+        {
+            var paymentsQry = QueryAllData();
+            return paymentsQry.Where(p => p.contract_id == contractId).ToList();
+        }
+
+        private IQueryable<PaymentViewModel> QueryAllData()
+        {
+            var paymentsQry = from pay in _context.Payment
+                               join con in _context.Contract on pay.contract_id equals con.id
+                               join own in _context.Owner on con.lessor_id equals own.id
+                               join driv in _context.Driver on con.lessee_id equals driv.id
+                               join frec in _context.GeneralCatalogValues on con.frequency_id equals frec.id
+                               join stat in _context.GeneralCatalogValues on pay.status_id equals stat.id
+                               select new PaymentViewModel
+                               {
+                                   id = pay.id,
+                                   contract_id = con.id,
+                                   lessor = own.ToString(),
+                                   lessee = driv.ToString(),
+                                   late = pay.late,
+                                   tickets = pay.tickets,
+                                   thirdparty = pay.thirdparty,
+                                   //frequency_id = con.frequency_id ?? 0,
+                                   frequency = frec.title,
+                                   due_date = pay.due_date,
+                                   //due_day = con.due_day ?? 1,
+                                   rental_fee = pay.rental_fee,
+                                   late_fee = pay.late_fee,
+                                   thirdparty_fee = pay.thirdparty_fee,
+                                   tickets_fee = pay.tickets_fee,
+                                   total_due_amount = pay.total_due_amount,
+                                   total_paid_amount = pay.total_paid_amount,
+                                   balance = pay.balance,
+                                   credit = pay.credit,
+                                   status_id = pay.status_id,
+                                   status = stat.title,
+                                   payment_date = pay.payment_date,
+                                   period = pay.period,
+                                   created_on = pay.created_on,
+                                   created_by = pay.created_by,
+                                   modified_on = pay.modified_on,
+                                   modified_by = pay.modified_by
+                               };
+            return paymentsQry;
+        }
+
         public PaymentViewModel GetNextPaymentPeriodInit(long contractId)
         {
             var contractDataOp = new ContractData(_context);
