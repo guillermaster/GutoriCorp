@@ -63,12 +63,15 @@ namespace GutoriCorp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,balance,contract_id,created_by,created_on,credit,late,late_fee,modified_by,modified_on,payment_date,period,rental_fee,status_id,thirdparty,thirdparty_fee,tickets,tickets_fee,total_due_amount,total_paid_amount")] Payment payment)
+        public async Task<IActionResult> Create(PaymentViewModel payment)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(payment);
-                await _context.SaveChangesAsync();
+                var paymentData = new PaymentData(_context);
+                payment.id = 0;
+                payment.created_by = 1;
+                payment.modified_by = 1;
+                await paymentData.Add(payment);
                 return RedirectToAction("Index");
             }
             return View(payment);

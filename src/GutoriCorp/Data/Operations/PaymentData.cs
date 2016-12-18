@@ -17,6 +17,12 @@ namespace GutoriCorp.Data.Operations
             _context = context;
         }
 
+        public async Task Add(PaymentViewModel payment)
+        {
+            _context.Add(GetEntity(payment));
+            await _context.SaveChangesAsync();
+        }
+
         public PaymentViewModel GetNextPaymentPeriodInit(long contractId)
         {
             var contractDataOp = new ContractData(_context);
@@ -89,7 +95,7 @@ namespace GutoriCorp.Data.Operations
             }
 
             nextPayment.total_due_amount = nextPayment.rental_fee + 
-                nextPayment.late_fee + nextPayment.credit + nextPayment.balance;
+                nextPayment.late_fee + nextPayment.previous_balance - nextPayment.previous_credit;
 
             return nextPayment;
         }
@@ -108,6 +114,36 @@ namespace GutoriCorp.Data.Operations
             };
 
             return paymentVm;
+        }
+
+        private static Payment GetEntity(PaymentViewModel paymentVm)
+        {
+            var payment = new Payment
+            {
+                contract_id = paymentVm.contract_id,
+                period = paymentVm.period,
+                due_date = paymentVm.due_date,
+                payment_date = DateTime.Now,
+                late = paymentVm.late,
+                tickets = paymentVm.tickets,
+                thirdparty = paymentVm.thirdparty,
+                rental_fee = paymentVm.rental_fee,
+                late_fee = paymentVm.late_fee,
+                thirdparty_fee = paymentVm.thirdparty_fee,
+                tickets_fee = paymentVm.tickets_fee,
+                total_due_amount = paymentVm.total_due_amount,
+                total_paid_amount = paymentVm.total_paid_amount,
+                balance = paymentVm.total_due_amount > paymentVm.total_paid_amount ?
+                            paymentVm.total_due_amount - paymentVm.total_paid_amount : 0,
+                credit = paymentVm.total_paid_amount > paymentVm.total_due_amount ?
+                            paymentVm.total_paid_amount - paymentVm.total_due_amount : 0,
+                status_id = (short)GeneralStatus.Active,
+                created_on = DateTime.Now,
+                created_by = paymentVm.created_by,
+                modified_on = DateTime.Now,
+                modified_by = paymentVm.modified_by
+            };
+            return payment;
         }
     }
 }

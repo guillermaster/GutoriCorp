@@ -95,6 +95,8 @@
                         <label asp-for="period" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
                             @Html.DisplayFor(model => model.period)
+                            @Html.HiddenFor(model => model.due_date)
+                            @Html.HiddenFor(model => model.contract_id)
                         </div>
                     </div>
                 </fieldset>
@@ -164,7 +166,7 @@
                         <div class="col-md-5 col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <input asp-for="tickets_fee" type="text" class="form-control" /><span class="input-group-addon">.00</span>
+                                <input asp-for="tickets_fee" type="text" class="form-control" readonly="readonly" /><span class="input-group-addon">.00</span>
                             </div><br />
                             <span asp-validation-for="tickets_fee" class="text-danger" />
                         </div>
@@ -186,26 +188,24 @@
 
                 <fieldset>
                     <div class="form-group">
-                        <label asp-for="credit" class="col-md-2 control-label"></label>
+                        <label asp-for="previous_credit" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <input asp-for="credit" type="text" class="form-control" readonly="readonly" /><span class="input-group-addon">.00</span>
-                            </div><br />
-                            <span asp-validation-for="credit" class="text-danger" />
+                                <input asp-for="previous_credit" type="text" class="form-control" readonly="readonly" /><span class="input-group-addon">.00</span>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
 
                 <fieldset>
                     <div class="form-group">
-                        <label asp-for="balance" class="col-md-2 control-label"></label>
+                        <label asp-for="previous_balance" class="col-md-2 control-label"></label>
                         <div class="col-md-5 col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <input asp-for="balance" type="text" class="form-control" readonly="readonly" /><span class="input-group-addon">.00</span>
-                            </div><br />
-                            <span asp-validation-for="balance" class="text-danger" />
+                                <input asp-for="previous_balance" type="text" class="form-control" readonly="readonly" /><span class="input-group-addon">.00</span>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -248,3 +248,56 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script>
+    jQuery(function ($) {
+        $("input:radio[name=@Html.IdFor(model => model.tickets)]").click(function () {
+            var inputTextId = "@Html.IdFor(model => model.tickets_fee)"
+            if ($(this).val() === "False") {
+                setFieldReadOnly(inputTextId, true);
+                $("#" + inputTextId).val("0");
+            } else {
+                setFieldReadOnly(inputTextId, false);
+            }
+            setTotalDueAmount();
+        });
+
+        $("input:radio[name=@Html.IdFor(model => model.thirdparty)]").click(function () {
+            var inputTextId = "@Html.IdFor(model => model.thirdparty_fee)";
+            if ($(this).val() === "False") {
+                setFieldReadOnly(inputTextId, true);
+                $("#" + inputTextId).val("0");
+            } else {
+                setFieldReadOnly(inputTextId, false);
+            }
+            setTotalDueAmount();
+        });
+
+        $("#@Html.IdFor(model => model.thirdparty_fee)").change(function () {
+            setTotalDueAmount();
+        });
+        $("#@Html.IdFor(model => model.tickets_fee)").change(function () {
+            setTotalDueAmount();
+        });
+
+        function setFieldReadOnly(id, readonly) {
+            $("#" + id).attr('readonly', readonly);
+        }
+
+
+    });
+
+    function setTotalDueAmount() {
+        var rental_fee = $("#@Html.IdFor(model => model.rental_fee)").val();
+        var late_fee = $("#@Html.IdFor(model => model.late_fee)").val();
+        var tickets_fee = $("#@Html.IdFor(model => model.tickets_fee)").val();
+        var thirdparty_fee = $("#@Html.IdFor(model => model.thirdparty_fee)").val();
+        var prev_credit = $("#@Html.IdFor(model => model.previous_credit)").val();
+        var prev_debit = $("#@Html.IdFor(model => model.previous_balance)").val();
+
+        var totDueAmount = parseFloat(rental_fee) + parseFloat(late_fee) + 
+                           parseFloat(tickets_fee) + parseFloat(thirdparty_fee) + parseFloat(prev_debit - prev_credit);
+
+        $("#@Html.IdFor(model => model.total_due_amount)").val(totDueAmount);
+    }
+</script>
