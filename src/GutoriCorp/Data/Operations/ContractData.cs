@@ -97,6 +97,7 @@ namespace GutoriCorp.Data.Operations
                                    frequency_id = cont.frequency_id,
                                    frequency = frec.title,
                                    contract_date = cont.contract_date,
+                                   due_day = cont.due_day,
                                    rental_fee = cont.rental_fee,
                                    late_fee_type_id = cont.late_fee_type_id,
                                    late_fee_type = lateFeeType.title,

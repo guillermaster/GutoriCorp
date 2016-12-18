@@ -24,5 +24,11 @@ namespace GutoriCorp.Common
             Active = 3,
             Inactive = 4
         }
+
+        public enum PaymentFrequency
+        {
+            Weekly = 5,
+            Monthly = 6
+        }
     }
 }

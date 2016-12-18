@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GutoriCorp.Data.Models
+namespace GutoriCorp.Models.BusinessViewModels
 {
-    [Table("Payment")]
-    public class Payment
+    public class PaymentViewModel
     {
         public long id { get; set; }
 
@@ -16,8 +15,6 @@ namespace GutoriCorp.Data.Models
         public short period { get; set; }
 
         public DateTime payment_date { get; set; }
-
-        public DateTime due_date { get; set; }
 
         public bool late { get; set; }
 
@@ -54,5 +51,32 @@ namespace GutoriCorp.Data.Models
         public DateTime modified_on { get; set; }
 
         public short modified_by { get; set; }
+
+        /*** display-only properties ***/
+
+        [Display(Name = "Lessor")]
+        public string lessor { get; set; }
+
+        [Display(Name = "Lessee")]
+        public string lessee { get; set; }
+
+        [Display(Name = "Frecuency")]
+        public string frequency { get; set; }
+
+        [Display(Name = "Status")]
+        public string status { get; set; }
+
+        [Display(Name = "TLC Plate")]
+        public string tlc_plate { get; set; }
+
+        [Display(Name = "VIN Code")]
+        public string vin_code { get; set; }
+
+        [Display(Name = "Due Date")]
+        public DateTime due_date { get; set; }
+
+        public short frequency_id { get; set; }
+
+        public short due_day { get; set; }
     }
 }

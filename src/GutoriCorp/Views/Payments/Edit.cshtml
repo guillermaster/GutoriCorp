@@ -1,0 +1,169 @@
+@model GutoriCorp.Models.BusinessViewModels.PaymentViewModel
+
+
+<div class="content-heading bg-white">
+    <div class="row">
+        <div class="col-sm-9">
+            <h4 class="m0 text-thin">Modify Payment</h4>
+            <small>Modifies payment information</small>
+        </div>
+        <div class="col-sm-3 text-right hidden-xs">
+            <a href="Index" class="mt-sm btn btn-labeled btn-default ripple">All Payments<span class="btn-label btn-label-right"><i class="ion-plus-round"></i></span></a>
+        </div>
+    </div>
+</div>
+
+<div class="container container-lg">
+    <form asp-action="Edit">
+        <div class="form-horizontal">
+            <h4>Payment</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="balance" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="balance" class="form-control" />
+                    <span asp-validation-for="balance" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="contract_id" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="contract_id" class="form-control" />
+                    <span asp-validation-for="contract_id" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="created_by" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="created_by" class="form-control" />
+                    <span asp-validation-for="created_by" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="created_on" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="created_on" class="form-control" />
+                    <span asp-validation-for="created_on" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="credit" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="credit" class="form-control" />
+                    <span asp-validation-for="credit" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input asp-for="late" />
+                        <label asp-for="late"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="late_fee" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="late_fee" class="form-control" />
+                    <span asp-validation-for="late_fee" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="modified_by" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="modified_by" class="form-control" />
+                    <span asp-validation-for="modified_by" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="modified_on" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="modified_on" class="form-control" />
+                    <span asp-validation-for="modified_on" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="payment_date" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="payment_date" class="form-control" />
+                    <span asp-validation-for="payment_date" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="period" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="period" class="form-control" />
+                    <span asp-validation-for="period" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="rental_fee" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="rental_fee" class="form-control" />
+                    <span asp-validation-for="rental_fee" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="status_id" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="status_id" class="form-control" />
+                    <span asp-validation-for="status_id" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input asp-for="thirdparty" />
+                        <label asp-for="thirdparty"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="thirdparty_fee" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="thirdparty_fee" class="form-control" />
+                    <span asp-validation-for="thirdparty_fee" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input asp-for="tickets" />
+                        <label asp-for="tickets"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="tickets_fee" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="tickets_fee" class="form-control" />
+                    <span asp-validation-for="tickets_fee" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="total_due_amount" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="total_due_amount" class="form-control" />
+                    <span asp-validation-for="total_due_amount" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="total_paid_amount" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="total_paid_amount" class="form-control" />
+                    <span asp-validation-for="total_paid_amount" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
