@@ -23,6 +23,37 @@ namespace GutoriCorp.Data.Operations
             await _context.SaveChangesAsync();
         }
 
+        public PaymentViewModel Get(long id, long contractId)
+        {
+            var paymentsQry = QueryAllData();
+            return paymentsQry.FirstOrDefault(p => p.contract_id == contractId && p.id == id);
+        }
+
+        public async Task Update(long id, long contractId, short userId, decimal ticketsFee, decimal thirdpartyFee, 
+            decimal totalPaid, decimal prevBalance, decimal prevCredit)
+        {
+            var payment = _context.Payment.FirstOrDefault(p => p.contract_id == contractId && p.id == id);
+            if (payment == null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            payment.tickets = ticketsFee > 0;
+            payment.thirdparty = thirdpartyFee > 0;
+            payment.tickets_fee = ticketsFee;
+            payment.thirdparty_fee = thirdpartyFee;
+            payment.previous_balance = prevBalance;
+            payment.previous_credit = prevCredit;
+            payment.total_due_amount = GetTotalDueAmount(GetViewModel(payment));
+            payment.total_paid_amount = totalPaid;
+            payment.balance = GetBalance(payment.total_due_amount, payment.total_paid_amount);
+            payment.credit = GetCredit(payment.total_due_amount, payment.total_paid_amount);
+            payment.modified_by = userId;
+            payment.modified_on = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+        }
+
         public List<PaymentViewModel> GetAll(long contractId)
         {
             var paymentsQry = QueryAllData();
@@ -141,12 +172,30 @@ namespace GutoriCorp.Data.Operations
                 nextPayment.late_fee = 0;
             }
 
-            nextPayment.total_due_amount = nextPayment.rental_fee + 
-                nextPayment.late_fee + nextPayment.previous_balance - nextPayment.previous_credit;
+            nextPayment.total_due_amount = GetTotalDueAmount(nextPayment);
 
             return nextPayment;
         }
-                
+
+        private static decimal GetTotalDueAmount(PaymentViewModel paymentVm)
+        {
+            var total_due_amount = paymentVm.rental_fee + paymentVm.late_fee + paymentVm.thirdparty_fee +
+                paymentVm.tickets_fee + paymentVm.previous_balance - paymentVm.previous_credit;
+            return total_due_amount;
+        }
+
+        private static decimal GetBalance(decimal totDueAmount, decimal totPaidAmount)
+        {
+            return totDueAmount > totPaidAmount ?
+                            totDueAmount - totPaidAmount : 0;
+        }
+
+        private static decimal GetCredit(decimal totDueAmount, decimal totPaidAmount)
+        {
+            return totPaidAmount > totDueAmount ?
+                            totPaidAmount - totDueAmount : 0;
+        }
+
         public static PaymentViewModel GetViewModel(ContractViewModel contract)
         {
             var paymentVm = new PaymentViewModel
@@ -178,19 +227,33 @@ namespace GutoriCorp.Data.Operations
                 late_fee = paymentVm.late_fee,
                 thirdparty_fee = paymentVm.thirdparty_fee,
                 tickets_fee = paymentVm.tickets_fee,
-                total_due_amount = paymentVm.total_due_amount,
+                total_due_amount = GetTotalDueAmount(paymentVm),
                 total_paid_amount = paymentVm.total_paid_amount,
-                balance = paymentVm.total_due_amount > paymentVm.total_paid_amount ?
-                            paymentVm.total_due_amount - paymentVm.total_paid_amount : 0,
-                credit = paymentVm.total_paid_amount > paymentVm.total_due_amount ?
-                            paymentVm.total_paid_amount - paymentVm.total_due_amount : 0,
                 status_id = (short)GeneralStatus.Active,
                 created_on = DateTime.Now,
                 created_by = paymentVm.created_by,
                 modified_on = DateTime.Now,
                 modified_by = paymentVm.modified_by
             };
+
+            paymentVm.balance = GetBalance(payment.total_due_amount, payment.total_paid_amount);
+            paymentVm.credit = GetCredit(payment.total_due_amount, payment.total_paid_amount);
+
             return payment;
+        }
+
+        private static PaymentViewModel GetViewModel(Payment payment)
+        {
+            var paymentVm = new PaymentViewModel
+            {
+                rental_fee = payment.rental_fee,
+                late_fee = payment.late_fee,
+                tickets_fee = payment.tickets_fee,
+                thirdparty_fee = payment.thirdparty_fee,
+                previous_balance = payment.previous_balance,
+                credit = payment.previous_credit
+            };
+            return paymentVm;
         }
     }
 }

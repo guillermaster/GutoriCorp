@@ -80,14 +80,14 @@ namespace GutoriCorp.Controllers
         }
 
         // GET: Payments/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public IActionResult Edit(long? id, long? cid)
         {
-            if (id == null)
+            if (id == null || cid == null)
             {
                 return NotFound();
             }
 
-            var payment = await _context.Payment.SingleOrDefaultAsync(m => m.id == id);
+            var payment = GetPayment(id.Value, cid.Value);
             if (payment == null)
             {
                 return NotFound();
@@ -100,7 +100,7 @@ namespace GutoriCorp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("id,balance,contract_id,created_by,created_on,credit,late,late_fee,modified_by,modified_on,payment_date,period,rental_fee,status_id,thirdparty,thirdparty_fee,tickets,tickets_fee,total_due_amount,total_paid_amount")] Payment payment)
+        public async Task<IActionResult> Edit(long id, PaymentViewModel payment)
         {
             if (id != payment.id)
             {
@@ -111,8 +111,11 @@ namespace GutoriCorp.Controllers
             {
                 try
                 {
-                    _context.Update(payment);
-                    await _context.SaveChangesAsync();
+                    var paymentData = new PaymentData(_context);
+
+                    await paymentData.Update(id, payment.contract_id, 1,
+                        payment.tickets_fee, payment.thirdparty_fee, payment.total_paid_amount,
+                        payment.previous_balance, payment.previous_credit);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -125,7 +128,7 @@ namespace GutoriCorp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = payment.contract_id });
             }
             return View(payment);
         }
@@ -167,6 +170,14 @@ namespace GutoriCorp.Controllers
         {            
             var paymentDataOp = new PaymentData(_context);
             var paymentVm = paymentDataOp.GetNextPaymentPeriodInit(contractId);
+
+            return paymentVm;
+        }
+
+        private PaymentViewModel GetPayment(long id, long contractId)
+        {
+            var paymentDataOp = new PaymentData(_context);
+            var paymentVm = paymentDataOp.Get(id, contractId);
 
             return paymentVm;
         }
