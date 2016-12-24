@@ -30,19 +30,18 @@ namespace GutoriCorp.Controllers
         }
 
         // GET: Payments/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public IActionResult Details(long? id, long? cid)
         {
-            if (id == null)
+            if (id == null || cid == null)
             {
                 return NotFound();
             }
 
-            var payment = await _context.Payment.SingleOrDefaultAsync(m => m.id == id);
+            var payment = GetPayment(id.Value, cid.Value);
             if (payment == null)
             {
                 return NotFound();
             }
-
             return View(payment);
         }
 
@@ -114,7 +113,7 @@ namespace GutoriCorp.Controllers
                     var paymentData = new PaymentData(_context);
 
                     await paymentData.Update(id, payment.contract_id, 1,
-                        payment.tickets_fee, payment.thirdparty_fee, payment.total_paid_amount,
+                        payment.tickets_fee, payment.total_paid_amount,
                         payment.previous_balance, payment.previous_credit);
                 }
                 catch (DbUpdateConcurrencyException)

@@ -34,9 +34,6 @@
                             @Html.DisplayNameFor(model => model.tickets)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.thirdparty)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.total_due_amount)
                         </th>
                         <th>
@@ -73,9 +70,6 @@
                                 @Html.DisplayFor(modelItem => item.tickets)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.thirdparty)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.total_due_amount)
                             </td>
                             <td>
@@ -89,7 +83,7 @@
                             </td>
                             <td>
                                 @Html.ActionLink("Edit", "Edit", "Payments", new { id = item.id, cid = item.contract_id })  |
-                                <a asp-action="Details" asp-route-id="@item.id" asp->Details</a>
+                                @Html.ActionLink("Details", "Details", "Payments", new { id = item.id, cid = item.contract_id })
                             </td>
                         </tr>
                     }

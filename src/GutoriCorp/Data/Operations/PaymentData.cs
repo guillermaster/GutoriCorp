@@ -29,7 +29,7 @@ namespace GutoriCorp.Data.Operations
             return paymentsQry.FirstOrDefault(p => p.contract_id == contractId && p.id == id);
         }
 
-        public async Task Update(long id, long contractId, short userId, decimal ticketsFee, decimal thirdpartyFee, 
+        public async Task Update(long id, long contractId, short userId, decimal ticketsFee,  
             decimal totalPaid, decimal prevBalance, decimal prevCredit)
         {
             var payment = _context.Payment.FirstOrDefault(p => p.contract_id == contractId && p.id == id);
@@ -39,9 +39,7 @@ namespace GutoriCorp.Data.Operations
             }
 
             payment.tickets = ticketsFee > 0;
-            payment.thirdparty = thirdpartyFee > 0;
             payment.tickets_fee = ticketsFee;
-            payment.thirdparty_fee = thirdpartyFee;
             payment.previous_balance = prevBalance;
             payment.previous_credit = prevCredit;
             payment.total_due_amount = GetTotalDueAmount(GetViewModel(payment));
@@ -76,14 +74,12 @@ namespace GutoriCorp.Data.Operations
                                    lessee = driv.ToString(),
                                    late = pay.late,
                                    tickets = pay.tickets,
-                                   thirdparty = pay.thirdparty,
                                    //frequency_id = con.frequency_id ?? 0,
                                    frequency = frec.title,
                                    due_date = pay.due_date,
                                    //due_day = con.due_day ?? 1,
                                    rental_fee = pay.rental_fee,
                                    late_fee = pay.late_fee,
-                                   thirdparty_fee = pay.thirdparty_fee,
                                    tickets_fee = pay.tickets_fee,
                                    total_due_amount = pay.total_due_amount,
                                    total_paid_amount = pay.total_paid_amount,
@@ -179,7 +175,7 @@ namespace GutoriCorp.Data.Operations
 
         private static decimal GetTotalDueAmount(PaymentViewModel paymentVm)
         {
-            var total_due_amount = paymentVm.rental_fee + paymentVm.late_fee + paymentVm.thirdparty_fee +
+            var total_due_amount = paymentVm.rental_fee + paymentVm.late_fee + 
                 paymentVm.tickets_fee + paymentVm.previous_balance - paymentVm.previous_credit;
             return total_due_amount;
         }
@@ -222,10 +218,8 @@ namespace GutoriCorp.Data.Operations
                 payment_date = DateTime.Now,
                 late = paymentVm.late,
                 tickets = paymentVm.tickets,
-                thirdparty = paymentVm.thirdparty,
                 rental_fee = paymentVm.rental_fee,
                 late_fee = paymentVm.late_fee,
-                thirdparty_fee = paymentVm.thirdparty_fee,
                 tickets_fee = paymentVm.tickets_fee,
                 total_due_amount = GetTotalDueAmount(paymentVm),
                 total_paid_amount = paymentVm.total_paid_amount,
@@ -249,7 +243,6 @@ namespace GutoriCorp.Data.Operations
                 rental_fee = payment.rental_fee,
                 late_fee = payment.late_fee,
                 tickets_fee = payment.tickets_fee,
-                thirdparty_fee = payment.thirdparty_fee,
                 previous_balance = payment.previous_balance,
                 credit = payment.previous_credit
             };

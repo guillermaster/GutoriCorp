@@ -22,15 +22,11 @@ namespace GutoriCorp.Data.Models
         public bool late { get; set; }
 
         public bool tickets { get; set; }
-
-        public bool thirdparty { get; set; }
-
+        
         public decimal rental_fee { get; set; }
 
         public decimal late_fee { get; set; }
-
-        public decimal thirdparty_fee { get; set; }
-
+        
         public decimal tickets_fee { get; set; }
 
         public decimal total_due_amount { get; set; }
