@@ -10,7 +10,9 @@ namespace GutoriCorp.Data.Models
     [Table("Ticket")]
     public partial class Ticket
     {
-        public int id { get; set; }
+        public long id { get; set; }
+
+        public int vehicle_id { get; set; }
 
         [Required]
         [StringLength(50)]

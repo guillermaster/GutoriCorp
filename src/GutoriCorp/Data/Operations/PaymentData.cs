@@ -202,7 +202,8 @@ namespace GutoriCorp.Data.Operations
                 due_day = contract.due_day ?? 0,
                 frequency_id = contract.frequency_id ?? 0,
                 rental_fee = contract.rental_fee ?? 0,
-                late_fee = contract.late_fee ?? 0
+                late_fee = contract.late_fee ?? 0,
+                vehicle_id = contract.vehicle_id ?? 0
             };
 
             return paymentVm;

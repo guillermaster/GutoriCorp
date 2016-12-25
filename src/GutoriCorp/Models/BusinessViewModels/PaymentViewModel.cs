@@ -74,5 +74,7 @@ namespace GutoriCorp.Models.BusinessViewModels
         public short frequency_id { get; set; }
 
         public short due_day { get; set; }
+
+        public int vehicle_id { get; set; }
     }
 }

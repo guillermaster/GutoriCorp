@@ -165,7 +165,7 @@
                                 <span class="input-group-addon">$</span>
                                 <input asp-for="tickets_fee" type="text" class="form-control" readonly="readonly" /><span class="input-group-addon">.00</span>
                             </div><br />
-                            <a href="../../Tickets/Create/@{ @Model.tlc_plate }">Add ticket</a>
+                            <a href="../../Tickets/Create/@Model.vehicle_id">Add ticket</a>
                             <span asp-validation-for="tickets_fee" class="text-danger" />
                         </div>
                     </div>

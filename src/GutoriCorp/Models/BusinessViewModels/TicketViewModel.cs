@@ -9,7 +9,9 @@ namespace GutoriCorp.Models.BusinessViewModels
 {
     public class TicketViewModel
     {
-        public int id { get; set; }
+        public long id { get; set; }
+
+        public int vehicle_id { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -49,5 +51,9 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         /** Display only properties **/
         public string vehicle { get; set; }
+
+        public string refer_url { get; set; }
+
+        public string status { get; set; }
     }
 }
