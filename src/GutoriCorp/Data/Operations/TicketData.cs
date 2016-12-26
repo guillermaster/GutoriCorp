@@ -46,6 +46,12 @@ namespace GutoriCorp.Data.Operations
             return ticket;
         }
 
+        public decimal GetPendingTicketsAmount(int vehicleId, DateTime duedate)
+        {
+            var pendingAmount = _context.Ticket.Where(t => t.ticket_date <= duedate && t.paid == false && t.vehicle_id == vehicleId).Sum(t => t.fine_amount);
+            return pendingAmount;
+        }
+
         private IQueryable<TicketViewModel> QueryAllData()
         {
             var paymentsQry = from tic in _context.Ticket

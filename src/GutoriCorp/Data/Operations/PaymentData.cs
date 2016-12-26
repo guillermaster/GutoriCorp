@@ -159,6 +159,7 @@ namespace GutoriCorp.Data.Operations
             {
                 nextPayment.previous_credit = latestPayment.credit;
                 nextPayment.previous_balance = latestPayment.balance;
+                nextPayment.tickets_fee = GetTicketsAmount(nextPayment.vehicle_id, nextPayment.due_date);
             }
 
             nextPayment.late = DateTime.Now > nextPayment.due_date;
@@ -171,6 +172,13 @@ namespace GutoriCorp.Data.Operations
             nextPayment.total_due_amount = GetTotalDueAmount(nextPayment);
 
             return nextPayment;
+        }
+
+        private decimal GetTicketsAmount(int vehicleId, DateTime paymentPeriod)
+        {
+            var ticketsDataOp = new TicketData(_context);
+            var ticketsAmount = ticketsDataOp.GetPendingTicketsAmount(vehicleId, paymentPeriod);
+            return ticketsAmount;
         }
 
         private static decimal GetTotalDueAmount(PaymentViewModel paymentVm)
