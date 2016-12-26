@@ -160,6 +160,7 @@ namespace GutoriCorp.Data.Operations
                 nextPayment.previous_credit = latestPayment.credit;
                 nextPayment.previous_balance = latestPayment.balance;
                 nextPayment.tickets_fee = GetTicketsAmount(nextPayment.vehicle_id, nextPayment.due_date);
+                nextPayment.tickets = nextPayment.tickets_fee > 0;
             }
 
             nextPayment.late = DateTime.Now > nextPayment.due_date;

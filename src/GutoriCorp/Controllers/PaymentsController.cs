@@ -75,6 +75,14 @@ namespace GutoriCorp.Controllers
                 await paymentData.Add(payment);
                 return RedirectToAction("Index", new { id = payment.contract_id });
             }
+
+            // set tickets as paid
+            if (payment.tickets)
+            {
+                var ticketsDataOp = new TicketData(_context);
+                await ticketsDataOp.SetTicketsPaid(payment.vehicle_id, payment.due_date, true);
+            }
+
             return View(payment);
         }
 

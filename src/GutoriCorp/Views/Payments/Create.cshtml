@@ -4,6 +4,8 @@
     var latePaymentYes = Model.late ? new { @checked = "checked", @disabled = "disabled" } : new { @checked = "", @disabled = "disabled" };
     var latePaymentNo = Model.late ? new { @checked = "", @disabled = "disabled" } : new { @checked = "checked", @disabled = "disabled" };
 
+    var ticketYes = Model.tickets ? new { @checked = "checked", @disabled = "disabled" } : new { @checked = "", @disabled = "disabled" };
+    var ticketNo = Model.tickets ? new { @checked = "", @disabled = "disabled" } : new { @checked = "checked", @disabled = "disabled" };
 }
 
 <div class="content-heading bg-white">
@@ -125,8 +127,8 @@
                         </div>
                         <label asp-for="tickets" class="col-md-1 control-label"></label>
                         <div class="col-md-2 col-sm-8">
-                            @Html.RadioButtonFor(m => m.tickets, true) Yes
-                            @Html.RadioButtonFor(m => m.tickets, false) No
+                            @Html.RadioButtonFor(m => m.tickets, true, ticketYes) Yes
+                            @Html.RadioButtonFor(m => m.tickets, false, ticketNo) No
                         </div>
                     </div>
                 </fieldset>

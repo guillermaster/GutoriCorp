@@ -52,6 +52,13 @@ namespace GutoriCorp.Data.Operations
             return pendingAmount;
         }
 
+        public async Task SetTicketsPaid(int vehicleId, DateTime duedate, bool paid)
+        {
+            var tickets = _context.Ticket.Where(t => t.ticket_date <= duedate && t.paid != paid && t.vehicle_id == vehicleId).ToList();
+            tickets.ForEach(t => t.paid = paid);
+            await _context.SaveChangesAsync();
+        }
+
         private IQueryable<TicketViewModel> QueryAllData()
         {
             var paymentsQry = from tic in _context.Ticket
