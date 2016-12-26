@@ -66,10 +66,16 @@ namespace GutoriCorp.Controllers
             if (ModelState.IsValid)
             {
                 var ticketDataOp = new TicketData(_context);
-                ticket.ticket = ConvertToBytes(ticket_file);
+                ticket.ticket_file = ConvertToBytes(ticket_file);
+                ticket.ticket_file_type = ticket_file.ContentType;
+                ticket.ticket_file_name = ticket_file.FileName;
 
                 await ticketDataOp.Add(ticket);
-                return Redirect(ticket.refer_url);
+
+                if (string.IsNullOrWhiteSpace(ticket.refer_url))
+                    return RedirectToAction("Index");
+                else
+                    return Redirect(ticket.refer_url);
             }
             return View(ticket);
         }
@@ -151,6 +157,19 @@ namespace GutoriCorp.Controllers
             _context.Ticket.Remove(ticket);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public FileResult DownloadTicketFile(long id)
+        {
+            var ticketDataOp = new TicketData(_context);
+            var ticket = ticketDataOp.GetTicketFile(id);
+
+            if (ticket == null)
+            {
+                throw new Exception("Ticket not found");
+            }
+
+            return File(ticket.ticket_file, ticket.ticket_file_type, ticket.ticket_file_name);
         }
 
         private bool TicketExists(long id)

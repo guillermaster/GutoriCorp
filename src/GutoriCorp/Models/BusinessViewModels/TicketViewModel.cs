@@ -37,7 +37,11 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         public decimal fine_amount { get; set; }
 
-        public byte[] ticket { get; set; }
+        public byte[] ticket_file { get; set; }
+
+        public string ticket_file_type { get; set; }
+
+        public string ticket_file_name { get; set; }
 
         public DateTime created_on { get; set; }
 
@@ -50,7 +54,10 @@ namespace GutoriCorp.Models.BusinessViewModels
         public short status_id { get; set; }
 
         /** Display only properties **/
-        public string vehicle { get; set; }
+        
+        public VehicleViewModel vehicle { get; set; }
+
+        public string vehicle_name { get { return vehicle != null ? vehicle.ToString() : string.Empty; } }
 
         public string refer_url { get; set; }
 

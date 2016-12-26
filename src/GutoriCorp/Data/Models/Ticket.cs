@@ -38,8 +38,13 @@ namespace GutoriCorp.Data.Models
 
         public decimal fine_amount { get; set; }
 
-        public byte[] ticket { get; set; }
-        
+        public byte[] ticket_file { get; set; }
+
+        [StringLength(20)]
+        public string ticket_file_type { get; set; }
+
+        public string ticket_file_name { get; set; }
+
         public DateTime created_on { get; set; }
 
         public short created_by { get; set; }

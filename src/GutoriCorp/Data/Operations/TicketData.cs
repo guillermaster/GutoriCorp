@@ -29,14 +29,32 @@ namespace GutoriCorp.Data.Operations
             return paymentsQry.FirstOrDefault(p => p.id == id);
         }
 
+        public TicketViewModel GetTicketFile(long id)
+        {
+            var ticket = _context.Ticket.Select(t => 
+                        new TicketViewModel {
+                            id = t.id,
+                            ticket_num = t.ticket_num,
+                            ticket_file = t.ticket_file,
+                            ticket_file_type = t.ticket_file_type,
+                            ticket_file_name = t.ticket_file_name,
+                        }).FirstOrDefault(t => t.id == id);
+            if (ticket == null) return null;
+
+            return ticket;
+        }
+
         private IQueryable<TicketViewModel> QueryAllData()
         {
             var paymentsQry = from tic in _context.Ticket
                               join veh in _context.Vehicle on tic.vehicle_id equals veh.id
+                              join mak in _context.VehicleMake on veh.make_id equals mak.id
+                              join mod in _context.VehicleMakeModel on veh.model_id equals mod.id
                               join stat in _context.GeneralCatalogValues on tic.status_id equals stat.id
                               select new TicketViewModel
                               {
                                   id = tic.id,
+                                  ticket_num = tic.ticket_num,                                  
                                   vehicle_id = tic.vehicle_id,
                                   status_id = tic.status_id,
                                   status = stat.title,
@@ -46,11 +64,11 @@ namespace GutoriCorp.Data.Operations
                                   description = tic.description,
                                   occurrence_place = tic.occurrence_place,
                                   fine_amount = tic.fine_amount,
-                                  ticket = tic.ticket,
                                   created_on = tic.created_on,
                                   created_by = tic.created_by,
                                   modified_on = tic.modified_on,
-                                  modified_by = tic.modified_by
+                                  modified_by = tic.modified_by,
+                                  vehicle = new VehicleViewModel { tlc_plate = veh.tlc_plate, year = veh.year, make = mak.name, model = mod.name}
                               };
             return paymentsQry;
         }
@@ -65,7 +83,7 @@ namespace GutoriCorp.Data.Operations
                 vehicle_id = vehicle.id,
                 tlc_plate = vehicle.tlc_plate,
                 vin_code = vehicle.vin_code,
-                vehicle = vehicle.ToString()
+                vehicle = vehicle
             };
 
             return ticket;
@@ -83,7 +101,9 @@ namespace GutoriCorp.Data.Operations
                 occurrence_place = ticketVm.occurrence_place,
                 ticket_date = ticketVm.ticket_date,
                 fine_amount = ticketVm.fine_amount,
-                ticket = ticketVm.ticket,
+                ticket_file = ticketVm.ticket_file,
+                ticket_file_type = ticketVm.ticket_file_type,
+                ticket_file_name = ticketVm.ticket_file_name,
                 created_on = DateTime.Now,
                 created_by = ticketVm.created_by,
                 modified_on = DateTime.Now,

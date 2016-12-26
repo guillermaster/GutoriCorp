@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label asp-for="vehicle" class="col-md-2 control-label"></label>
                     <div class="col-md-5 col-sm-8">
-                        @Html.DisplayFor(model => model.vehicle)
+                        @Html.DisplayFor(model => model.vehicle_name)
                         @Html.HiddenFor(model => model.vehicle_id)
                         @Html.HiddenFor(model => model.tlc_plate)
                         @Html.HiddenFor(model => model.vin_code)
@@ -94,9 +94,9 @@
 
             <fieldset>
                 <div class="form-group">
-                    <label asp-for="ticket" class="col-md-2 control-label"></label>
+                    <label asp-for="ticket_file" class="col-md-2 control-label"></label>
                     <div class="col-md-5 col-sm-8">
-                        <a href="DownloadTicketFile/@Model.id">Download</a>
+                        <a href="../DownloadTicketFile/@Model.id">Download</a>
                     </div>
                 </div>
             </fieldset>
