@@ -17,9 +17,11 @@ namespace GutoriCorp.Data.Operations
             _context = context;
         }
 
-        public async Task Add(TicketViewModel ticket)
+        public async Task Add(TicketViewModel ticketVm)
         {
-            _context.Add(GetEntity(ticket));
+            var ticket = GetEntity(ticketVm);
+            ticket.paid = false;
+            _context.Add(ticket);
             await _context.SaveChangesAsync();
         }
 

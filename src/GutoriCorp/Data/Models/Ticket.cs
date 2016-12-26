@@ -54,5 +54,7 @@ namespace GutoriCorp.Data.Models
         public short modified_by { get; set; }
 
         public short status_id { get; set; }
+
+        public bool paid { get; set; }
     }
 }

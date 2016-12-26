@@ -43,6 +43,8 @@ namespace GutoriCorp.Models.BusinessViewModels
 
         public string ticket_file_name { get; set; }
 
+        public bool paid { get; set; }
+
         public DateTime created_on { get; set; }
 
         public short created_by { get; set; }
