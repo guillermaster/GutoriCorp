@@ -1,3 +1,5 @@
+@model GutoriCorp.Models.GeneralViewModels.DashboardViewModel
+
 @{
     ViewData["Title"] = "Dashboard";
 }
@@ -71,32 +73,92 @@
       </div>
     </div>
   </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="card-title">Financial summary this week</div>
+                </div>
+                <div class="card-body">
+                    <div id="pie-flotchart-week" class="flot-chart flot-chart-lg"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="card-title">Financial summary this month</div>
+                </div>
+                <div class="card-body">
+                    <div id="pie-flotchart-month" class="flot-chart flot-chart-lg"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="card-title">Vehicles status</div>
+                </div>
+                <div class="card-body">
+                    <div id="pie-flotchart-vehicles" class="flot-chart flot-chart-lg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
   <div class="row">
     <div class="col-lg-9 col-md-12">
       <div class="row">
         <div class="col-lg-8">
-          <div class="card">
-            <div class="card-heading">
-              <!-- START dropdown-->
-              <div class="pull-right dropdown">
-                <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon ripple"><em class="ion-android-more-vertical"></em></button>
-                <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-                  <li><a href="">Last 30 days</a></li>
-                  <li><a href="">Last week</a></li>
-                  <li><a href="">Last year</a></li>
-                </ul>
-              </div>
-              <!-- END dropdown-->
-              <div class="card-title">Analytic board</div><small>Nulla commodo blandit cursus.</small>
+            <div class="card">
+                <!-- START table-responsive-->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Project</th>
+                                <th>Completion</th>
+                                <th class="text-right">Trend</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="va-middle"><span class="badge bg-pink-500">1</span></td>
+                                <td>
+                                    <p class="m0">Vestibulum<br /><small class="text-thin">Nunc posuere eleifend lobortis.</small></p>
+                                </td>
+                                <td class="va-middle">50%</td>
+                                <td class="text-right va-middle"><em class="ion-arrow-graph-up-right text-success"></em></td>
+                            </tr>
+                            <tr>
+                                <td class="va-middle"><span class="badge bg-purple-400">2</span></td>
+                                <td>
+                                    <p class="m0">Runfaster<br /><small class="text-thin">Nunc posuere eleifend lobortis.</small></p>
+                                </td>
+                                <td class="va-middle">30%</td>
+                                <td class="text-right va-middle"><em class="ion-arrow-graph-down-right text-warning"></em></td>
+                            </tr>
+                            <tr>
+                                <td class="va-middle"><span class="badge bg-indigo-500">3</span></td>
+                                <td>
+                                    <p class="m0">Medic Healthcare<br /><small class="text-thin">Nunc posuere eleifend lobortis.</small></p>
+                                </td>
+                                <td class="va-middle">80%</td>
+                                <td class="text-right va-middle"><em class="ion-arrow-graph-up-right text-success"></em></td>
+                            </tr>
+                            <tr>
+                                <td class="va-middle"><span class="badge bg-info">4</span></td>
+                                <td>
+                                    <p class="m0">Videotubeyou<br /><small class="text-thin">Nunc posuere eleifend lobortis.</small></p>
+                                </td>
+                                <td class="va-middle">50%</td>
+                                <td class="text-right va-middle"><em class="ion-arrow-graph-down-right text-warning"></em></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END table-responsive-->
             </div>
-            <div class="card-body">
-              <div role="group" aria-label="..." class="pull-right pr-sm btn-group btn-group-sm">
-                <button type="button" class="btn btn-default btn-xs btn-default">Total</button>
-                <button type="button" class="btn btn-default btn-xs btn-default">Average</button>
-              </div>
-              <div id="flot-main-spline" class="flot-chart flot-chart-lg flot-legend-left"></div>
-            </div>
-          </div>
         </div>
         <div class="col-lg-4">
           <div class="card">
@@ -129,56 +191,7 @@
           </div>
         </div>
         <div class="col-xs-12 col-lg-8">
-          <div class="card">
-            <!-- START table-responsive-->
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Project</th>
-                    <th>Completion</th>
-                    <th class="text-right">Trend</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="va-middle"><span class="badge bg-pink-500">1</span></td>
-                    <td>
-                      <p class="m0">Vestibulum<br/><small class="text-thin">Nunc posuere eleifend lobortis.</small></p>
-                    </td>
-                    <td class="va-middle">50%</td>
-                    <td class="text-right va-middle"><em class="ion-arrow-graph-up-right text-success"></em></td>
-                  </tr>
-                  <tr>
-                    <td class="va-middle"><span class="badge bg-purple-400">2</span></td>
-                    <td>
-                      <p class="m0">Runfaster<br/><small class="text-thin">Nunc posuere eleifend lobortis.</small></p>
-                    </td>
-                    <td class="va-middle">30%</td>
-                    <td class="text-right va-middle"><em class="ion-arrow-graph-down-right text-warning"></em></td>
-                  </tr>
-                  <tr>
-                    <td class="va-middle"><span class="badge bg-indigo-500">3</span></td>
-                    <td>
-                      <p class="m0">Medic Healthcare<br/><small class="text-thin">Nunc posuere eleifend lobortis.</small></p>
-                    </td>
-                    <td class="va-middle">80%</td>
-                    <td class="text-right va-middle"><em class="ion-arrow-graph-up-right text-success"></em></td>
-                  </tr>
-                  <tr>
-                    <td class="va-middle"><span class="badge bg-info">4</span></td>
-                    <td>
-                      <p class="m0">Videotubeyou<br/><small class="text-thin">Nunc posuere eleifend lobortis.</small></p>
-                    </td>
-                    <td class="va-middle">50%</td>
-                    <td class="text-right va-middle"><em class="ion-arrow-graph-down-right text-warning"></em></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- END table-responsive-->
-          </div>
+          
         </div>
       </div>
     </div>
@@ -253,51 +266,124 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-4 col-md-6">
-      <div class="card">
-        <div class="card-heading bg-pink-500 ripple ripple-block">
-          <div class="card-title text-center"><small>October</small>
-            <h4 class="mv-sm text-md">12</h4><span>Monday</span>
-          </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="card-title">Financial summary this week</div>
+                </div>
+                <div class="card-body">
+                    <div id="pie-flotchart" class="flot-chart flot-chart-lg"></div>
+                </div>
+            </div>
         </div>
-        <div class="ui-datepicker-responsive">
-          <div id="dashboard-datepicker" data-date="04/04/2016" class="ui-datepicker"></div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="card-title">
+                        <div class="pull-right"><em class="ion-ios-people text-soft icon-lg"></em></div>Resources distribution
+                    </div>
+                </div>
+                <div class="card-body pt0">
+                    <div id="vector-map" style="height:240px" class="vector-map"></div>
+                </div>
+                <ul class="list-group m0">
+                    <li class="list-group-item"><span>Silicon Valley</span><span class="badge badge-xs bg-green-500">15</span></li>
+                    <li class="list-group-item"><span>Chicago</span><span class="badge badge-xs bg-pink-500">9</span></li>
+                    <li class="list-group-item"><span>Houston</span><span class="badge badge-xs bg-purple-500">3</span></li>
+                    <li class="list-group-item"><span>Others</span><span class="badge badge-xs bg-blue-500">25</span></li>
+                </ul>
+            </div>
         </div>
-      </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="card-title">
+                        <div class="pull-right"><a href=""><em class="ion-plus-round text-soft"></em></a></div>Tasks
+                    </div>
+                </div>
+                <div class="card-body text-center pt0">
+                    <div id="dashboard-easypiechartTask" data-percent="85" class="easypie-chart block-center"><small class="percentage">Goal</small></div>
+                    <p class="mv">85% productivity</p>
+                </div>
+                <div class="list-group m0"><a href="" class="list-group-item bt0"><span class="text-sm">Work on project presentation</span><span class="pull-right"><em class="ion-ios-arrow-right"></em></span></a><a href="" class="list-group-item"><span class="text-sm">Prepare a call with Robert</span><span class="pull-right"><em class="ion-ios-arrow-right"></em></span></a><a href="" class="list-group-item"><span class="text-sm">Release a new version</span><span class="pull-right"><em class="ion-ios-arrow-right"></em></span></a><a href="" class="list-group-item bb0"><span class="text-sm">Tell Houston there's no problem</span><span class="pull-right"><em class="ion-ios-arrow-right"></em></span></a></div>
+                <div id="flot-task-chart" data-height="90" class="flot-chart flot-chart-sm"></div>
+            </div>
+        </div>
     </div>
-    <div class="col-lg-4 col-md-6">
-      <div class="card">
-        <div class="card-heading">
-          <div class="card-title">
-            <div class="pull-right"><em class="ion-ios-people text-soft icon-lg"></em></div>Resources distribution
-          </div>
-        </div>
-        <div class="card-body pt0">
-          <div id="vector-map" style="height:240px" class="vector-map"></div>
-        </div>
-        <ul class="list-group m0">
-          <li class="list-group-item"><span>Silicon Valley</span><span class="badge badge-xs bg-green-500">15</span></li>
-          <li class="list-group-item"><span>Chicago</span><span class="badge badge-xs bg-pink-500">9</span></li>
-          <li class="list-group-item"><span>Houston</span><span class="badge badge-xs bg-purple-500">3</span></li>
-          <li class="list-group-item"><span>Others</span><span class="badge badge-xs bg-blue-500">25</span></li>
-        </ul>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-12">
-      <div class="card">
-        <div class="card-heading">
-          <div class="card-title">
-            <div class="pull-right"><a href=""><em class="ion-plus-round text-soft"></em></a></div>Tasks
-          </div>
-        </div>
-        <div class="card-body text-center pt0">
-          <div id="dashboard-easypiechartTask" data-percent="85" class="easypie-chart block-center"><small class="percentage">Goal</small></div>
-          <p class="mv">85% productivity</p>
-        </div>
-        <div class="list-group m0"><a href="" class="list-group-item bt0"><span class="text-sm">Work on project presentation</span><span class="pull-right"><em class="ion-ios-arrow-right"></em></span></a><a href="" class="list-group-item"><span class="text-sm">Prepare a call with Robert</span><span class="pull-right"><em class="ion-ios-arrow-right"></em></span></a><a href="" class="list-group-item"><span class="text-sm">Release a new version</span><span class="pull-right"><em class="ion-ios-arrow-right"></em></span></a><a href="" class="list-group-item bb0"><span class="text-sm">Tell Houston there's no problem</span><span class="pull-right"><em class="ion-ios-arrow-right"></em></span></a></div>
-        <div id="flot-task-chart" data-height="90" class="flot-chart flot-chart-sm"></div>
-      </div>
-    </div>
-  </div>
 </div>
+<script src="/lib/flot/jquery.flot.js"></script>
+<script src="/lib/flot/jquery.flot.categories.js"></script>
+<script src="/lib/flot-spline/js/jquery.flot.spline.js"></script>
+<script src="/lib/flot.tooltip/js/jquery.flot.tooltip.js"></script>
+<script src="/lib/flot/jquery.flot.resize.js"></script>
+<script src="/lib/flot/jquery.flot.pie.js"></script>
+<script src="/lib/flot/jquery.flot.time.js"></script>
+<script>
+    // PIE
+    // -----------------------------------
+    var pieDataWeek = [
+    @foreach (var weekPayment in Model.PaymentsThisWeek)
+    {
+        <text>
+        {
+            'label': '@weekPayment.Title',
+            'color': '@weekPayment.Color',
+            'data': @weekPayment.Value
+        },
+        </text>
+    }
+    
+    ];
+
+    var pieDataMonth = [{
+        'label': 'Collected Payments',
+        'color': '#3949AB',
+        'data': 430
+    }, {
+        'label': 'Pending',
+        'color': '#FF7043',
+        'data': 790
+    }];
+
+    var pieDataVehicles = [{
+        'label': 'On contract',
+        'color': '#3949AB',
+        'data': 50
+    }, {
+        'label': 'Without contract',
+        'color': '#FF7043',
+        'data': 3
+    }];
+
+    var pieOptions = {
+        series: {
+            pie: {
+                show: true,
+                innerRadius: 0,
+                label: {
+                    show: true,
+                    radius: 0.8,
+                    formatter: function (label, series) {
+                        return '<div class="flot-pie-label">' +
+                            //label + ' : ' +
+                            Math.round(series.percent) +
+                            '%<br />' +
+                            series.data +
+                            '</div>';
+                    },
+                    background: {
+                        opacity: 0.8,
+                        color: '#222'
+                    }
+                }
+            }
+        }
+    };
+
+    jQuery(function ($) {
+        $('#pie-flotchart-week').plot(pieDataWeek, pieOptions);
+        $('#pie-flotchart-month').plot(pieDataMonth, pieOptions);
+        $('#pie-flotchart-vehicles').plot(pieDataVehicles, pieOptions);
+    });
+</script>
