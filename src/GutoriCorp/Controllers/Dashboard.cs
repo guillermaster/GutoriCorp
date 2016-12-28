@@ -19,6 +19,11 @@ namespace GutoriCorp.Controllers
             var dashboardDataOp = new DashboardData(_context);
             var model = new DashboardViewModel();
             model.PaymentsThisWeek = dashboardDataOp.GetPaymentsSummaryPerWeek();
+            model.PaymentsThisMonth = dashboardDataOp.GetPaymentsSummaryPerMonth();
+            model.TotalActiveContracts = dashboardDataOp.GetTotalActiveContracts();
+            model.TotalActiveVehicles = dashboardDataOp.GetTotalActiveVehicles();
+            model.TotalFreeVehicles = dashboardDataOp.GetTotalFreeVehicles();
+            model.TotalIncomeLastmonth = dashboardDataOp.GetTotalIncomeLastMonth();
             return View(model);
         }
 

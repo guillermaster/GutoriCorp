@@ -21,7 +21,7 @@
         <div class="card-body pv">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="m0 text-thin">350</h4><small class="m0 text-muted"><em class="mr-sm ion-arrow-up-b"></em>New visitors</small>
+              <h4 class="m0 text-thin">@Model.TotalActiveContracts</h4><small class="m0 text-muted"><em class="mr-sm ion-arrow-up-b"></em>Active contracts</small>
             </div>
             <div class="pull-right mt-lg">
               <div id="sparkline2" data-line-color="#4caf50" class="sparkline"></div>
@@ -35,7 +35,7 @@
         <div class="card-body pv">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="m0 text-thin">10,200</h4><small class="m0 text-muted"><em class="mr-sm ion-arrow-down-b"></em>Page views</small>
+              <h4 class="m0 text-thin">@Model.TotalActiveVehicles</h4><small class="m0 text-muted"><em class="mr-sm ion-arrow-down-b"></em>Active vehicles</small>
             </div>
             <div class="pull-right mt-lg">
               <div id="sparkline1" data-line-color="#03A9F4" class="sparkline"></div>
@@ -49,7 +49,7 @@
         <div class="card-body pv">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="m0 text-thin">880</h4><small class="m0 text-muted"><em class="mr-sm ion-arrow-up-b"></em>Last income</small>
+              <h4 class="m0 text-thin">@Model.TotalFreeVehicles</h4><small class="m0 text-muted"><em class="mr-sm ion-arrow-up-b"></em>Free vehicles</small>
             </div>
             <div class="pull-right mt-lg">
               <div id="sparkline3" data-line-color="#ab47bc" class="sparkline"></div>
@@ -63,7 +63,7 @@
         <div class="card-body pv">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="m0 text-thin">780</h4><small class="m0 text-muted"><em class="mr-sm ion-arrow-up-b"></em>Reservations</small>
+              <h4 class="m0 text-thin">@Model.TotalIncomeLastmonth</h4><small class="m0 text-muted"><em class="mr-sm ion-arrow-up-b"></em>Last month income</small>
             </div>
             <div class="pull-right mt-lg">
               <div id="sparkline4" data-line-color="#e91e63" class="sparkline"></div>
@@ -333,18 +333,22 @@
         },
         </text>
     }
-    
+
     ];
 
-    var pieDataMonth = [{
-        'label': 'Collected Payments',
-        'color': '#3949AB',
-        'data': 430
-    }, {
-        'label': 'Pending',
-        'color': '#FF7043',
-        'data': 790
-    }];
+    var pieDataMonth = [
+    @foreach (var monthPayment in Model.PaymentsThisMonth)
+    {
+        <text>
+        {
+            'label': '@monthPayment.Title',
+            'color': '@monthPayment.Color',
+            'data': @monthPayment.Value
+        },
+        </text>
+    }
+
+    ];
 
     var pieDataVehicles = [{
         'label': 'On contract',
@@ -369,7 +373,7 @@
                             //label + ' : ' +
                             Math.round(series.percent) +
                             '%<br />' +
-                            series.data +
+                            '<strong>' + series.data + '</strong>' +
                             '</div>';
                     },
                     background: {
